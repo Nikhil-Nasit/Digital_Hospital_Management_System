@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-
+// const { validationResult } = require('express-validator');
 const User = require("../models/user");
 
 // exports.getLogin = (req, res, next) => {
@@ -7,14 +7,18 @@ const User = require("../models/user");
 // };
 
 exports.postLogin = (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  // const email = req.body.email;
+  // const password = req.body.password;
+
+  const {email , password} = req.body;
 
   User.findOne({ email: email }).then((user) => {
     if (!user) {
       // req.flash('error', 'Invalid email or password.');
       // return res.redirect('/login');
-      console.log("Invalid Credentials");
+      // console.log("Invalid Credentials");
+      // res.json(req.body);
+      res.json({message : 'Invalid Credentials'});
     }
     else{
     bcrypt
@@ -27,7 +31,8 @@ exports.postLogin = (req, res, next) => {
           //   console.log(err);
           //   res.redirect('/');
           // });
-          console.log("Login Successfully");
+          // console.log("Login Successfully");
+          res.json(req.body);
         }else{
           console.log("Invalid Credentials");
         }
@@ -45,13 +50,20 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postSingup = (req, res, next) => {
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const email = req.body.email;
-  const mobileNumber = req.body.mobileNumber;
-  const password = req.body.password;
-  const confirmPassword = req.body.confirmPassword;
 
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   return next(
+  //     new HttpError('Invalid inputs passed, please check your data.', 422)
+  //   );
+  // }
+  // const firstName = req.body.firstName;
+  // const lastName = req.body.lastName;
+  // const email = req.body.email;
+  // const mobileNumber = req.body.mobileNumber;
+  // const password = req.body.password;
+  // const confirmPassword = req.body.confirmPassword;
+  const {firstName , lastName , email , mobileNumber , password , confirmPassword} = req.body;
   //   const user = new User({
   //     firstName: firstName,
   //     lastName: lastName,
@@ -69,7 +81,8 @@ exports.postSingup = (req, res, next) => {
         //   'E-Mail exists already, please pick a different one.'
         // );
         // return res.redirect('/signup');
-        console.log("Email id already exsit");
+        // console.log("Email id already exsit");
+        return res.json({message : false});
       }
       return bcrypt
         .hash(password, 12)
@@ -92,6 +105,7 @@ exports.postSingup = (req, res, next) => {
           //     subject: 'Signup succeeded!',
           //     html: '<h1>You successfully signed up!</h1>'
           //   });
+          res.send({message : true});
         })
         .catch((err) => {
           console.log(err);
