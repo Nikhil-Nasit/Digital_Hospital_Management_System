@@ -10,7 +10,7 @@ exports.postLogin = (req, res, next) => {
   // const email = req.body.email;
   // const password = req.body.password;
 
-  const {email , password} = req.body;
+  const { email, password } = req.body;
 
   User.findOne({ email: email }).then((user) => {
     if (!user) {
@@ -18,39 +18,37 @@ exports.postLogin = (req, res, next) => {
       // return res.redirect('/login');
       // console.log("Invalid Credentials");
       // res.json(req.body);
-      res.json({message : 'Invalid Credentials'});
-    }
-    else{
-    bcrypt
-      .compare(password, user.password)
-      .then((doMatch) => {
-        if (doMatch) {
-          // req.session.isLoggedIn = true;
-          // req.session.user = user;
-          // return req.session.save(err => {
-          //   console.log(err);
-          //   res.redirect('/');
-          // });
-          // console.log("Login Successfully");
-          res.json(req.body);
-        }else{
-          console.log("Invalid Credentials");
-        }
-        //   req.flash('error', 'Invalid email or password.');
-        //   res.redirect('/login');
-        //
-      })
-      .catch((err) => {
-        console.log(err);
-        //   res.redirect('/login');
-      });
+      res.json({ message: "Invalid Credentials" });
+    } else {
+      bcrypt
+        .compare(password, user.password)
+        .then((doMatch) => {
+          if (doMatch) {
+            // req.session.isLoggedIn = true;
+            // req.session.user = user;
+            // return req.session.save(err => {
+            //   console.log(err);
+            //   res.redirect('/');
+            // });
+            // console.log("Login Successfully");
+            res.json(req.body);
+          } else {
+            res.json({message : 'Invalid Credentials'});
+          }
+          //   req.flash('error', 'Invalid email or password.');
+          //   res.redirect('/login');
+          //
+        })
+        .catch((err) => {
+          console.log(err);
+          //   res.redirect('/login');
+        });
     }
   });
   // .catch(err => console.log(err));
 };
 
 exports.postSingup = (req, res, next) => {
-
   // const errors = validationResult(req);
   // if (!errors.isEmpty()) {
   //   return next(
@@ -63,7 +61,14 @@ exports.postSingup = (req, res, next) => {
   // const mobileNumber = req.body.mobileNumber;
   // const password = req.body.password;
   // const confirmPassword = req.body.confirmPassword;
-  const {firstName , lastName , email , mobileNumber , password , confirmPassword} = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    mobileNumber,
+    password,
+    confirmPassword,
+  } = req.body;
   //   const user = new User({
   //     firstName: firstName,
   //     lastName: lastName,
@@ -82,7 +87,7 @@ exports.postSingup = (req, res, next) => {
         // );
         // return res.redirect('/signup');
         // console.log("Email id already exsit");
-        return res.json({message : false});
+        return res.json({ message: false });
       }
       return bcrypt
         .hash(password, 12)
@@ -105,7 +110,7 @@ exports.postSingup = (req, res, next) => {
           //     subject: 'Signup succeeded!',
           //     html: '<h1>You successfully signed up!</h1>'
           //   });
-          res.send({message : true});
+          res.send({ message: true });
         })
         .catch((err) => {
           console.log(err);
