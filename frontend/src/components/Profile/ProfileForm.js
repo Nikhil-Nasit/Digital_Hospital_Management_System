@@ -1,8 +1,13 @@
 import classes from './ProfileForm.module.css';
 
 const ProfileForm = () => {
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+  }
+
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={formSubmitHandler}>
       <div className={classes.control}>
         <label htmlFor='new-password'>New Password</label>
         <input type='password' id='new-password' />
