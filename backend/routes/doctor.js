@@ -3,14 +3,14 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 
-const authController = require("../controllers/user-controllers");
+const doctorController = require("../controllers/doctor-controllers");
 
-router.post("/login", authController.postLogin);
+router.post("/login", doctorController.postLogin);
 
 router.post(
   "/signup",
 //   [check("password").isLength({ min: 5 })],
-  authController.postSingup
+  doctorController.postSingup
 );
 
 module.exports = router;

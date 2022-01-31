@@ -1,32 +1,32 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // const { validationResult } = require('express-validator');
-const User = require("../models/user");
+const Staff = require("../models/staff");
 
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
 
-  User.findOne({ email: email })
-    .then((user) => {
-      if (!user) {
+  Staff.findOne({ email: email })
+    .then((staff) => {
+      if (!staff) {
         res.status(401).json({
           message: "Invalid credentials, could not log you in.",
           status: "401",
         });
       } else {
         bcrypt
-          .compare(password, user.password)
+          .compare(password, staff.password)
           .then((doMatch) => {
             if (doMatch) {
               let token;
-              token = jwt.sign({ userId: user.id }, "supersecret", {
+              token = jwt.sign({ staffId: staff.id }, "supersecret", {
                 expiresIn: "1h",
               });
 
               res.status(201).json({
                 message: "Login Successfully",
                 status: "201",
-                userId: user.id,
+                staffId: staff.id,
                 token: token,
               });
               // console.log(user);
@@ -53,40 +53,41 @@ exports.postSingup = (req, res, next) => {
     lastName,
     email,
     mobileNumber,
+    address,
     password,
     confirmPassword,
   } = req.body;
 
-  User.findOne({ email: email })
-    .then((userDoc) => {
-      if (userDoc) {
+  Staff.findOne({ email: email })
+    .then((staffDoc) => {
+      if (staffDoc) {
         return res.status(422).json({
-          message: "User exists already, please login instead.",
+          message: "Staff exists already, please login instead.",
           status: "422",
         });
       }
       return bcrypt
         .hash(password, 12)
         .then((hashedPassword) => {
-          const user = new User({
+          const staff = new Staff({
             firstName: firstName,
             lastName: lastName,
             email: email,
             mobileNumber: mobileNumber,
+            address: address,
             password: hashedPassword,
             confirmPassword: hashedPassword,
           });
-          return user.save();
-          
+          return staff.save();
         })
         .then((result) => {
           let token;
-          token = jwt.sign({ userId: result.id }, "supersecret", {
+          token = jwt.sign({ staffId: result.id }, "supersecret", {
             expiresIn: "1h",
           });
           res.status(201).json({
             message: "Signed up Successfully",
-            userId: result.id,
+            staffId: result.id,
             token: token,
           });
         })
