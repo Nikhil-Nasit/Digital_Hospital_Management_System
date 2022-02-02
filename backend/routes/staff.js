@@ -13,4 +13,6 @@ router.post(
   staffController.postSingup
 );
 
+router.delete("/delete",staffController.postDelete);
+
 module.exports = router;

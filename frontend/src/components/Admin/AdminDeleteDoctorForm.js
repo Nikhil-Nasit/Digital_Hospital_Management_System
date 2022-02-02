@@ -8,11 +8,8 @@ const AdminDeleteDoctorForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
-  const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isInValidCredentials, setIsInValidCredentials] = useState(false);
-  const [isExsistingUser, setIsExsistingUser] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isNotExist , setIsNotExist] = useState(false);
 
   const [enteredDoctorId, setEnteredDoctorId] = useState("");
   const [enteredDoctorIdTouched, setEnteredDoctorIdTouched] = useState(false);
@@ -23,6 +20,7 @@ const AdminDeleteDoctorForm = () => {
 
   const doctorIdInputChangeHandler = (event) => {
     setEnteredDoctorId(event.target.value);
+    setIsNotExist(false);
   };
 
   const doctorIdInputBlurHandler = (event) => {
@@ -35,93 +33,35 @@ const AdminDeleteDoctorForm = () => {
   }
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("Doctor Deleted Successfully");
-    // if (isLogin) {
-    //   setIsLoading(true);
+    // console.log("Doctor Deleted Successfully");
 
-    //   try {
-    //     const response = await fetch("http://localhost:5000/login", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         email: enteredEmailLogin,
-    //         password: enteredPasswordLogin,
-    //       }),
-    //     });
+      try {
+        setIsLoading(true);
+        const response = await fetch("http://localhost:5000/doctor/delete", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id : enteredDoctorId
+          }),
+        });
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
+        const responseData = await response.json();
+        setIsLoading(false);
 
-    //     if (responseData.status === "201") {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else {
-    //       setIsInValidCredentials(true);
-    //       setEnteredEmailLogin("");
-    //       setEnteredPasswordLogin("");
-
-    //       setEnteredEmailLoginTouched(false);
-    //       setEnteredPasswordLoginTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // } else {
-    //   try {
-    //     setIsLoading(true);
-
-    //     const response = await fetch("http://localhost:5000/signup", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         firstName: enteredFirstName,
-    //         lastName: enteredLastName,
-    //         email: enteredEmail,
-    //         mobileNumber: enteredMobileNumber,
-    //         password: enteredPassword,
-    //         confirmPassword: enteredConfirmPassword,
-    //       }),
-    //     });
-
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
-
-    //     if (
-    //       responseData.status !== "422" &&
-    //       enteredPassword === enteredConfirmPassword
-    //     ) {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else if (enteredPassword !== enteredConfirmPassword) {
-    //       setIsPasswordValid(true);
-    //     } else {
-    //       setIsExsistingUser(true);
-    //       setEnteredEmail("");
-    //       setEnteredFirstName("");
-    //       setEnteredLastName("");
-    //       setEnteredMobileNumber("");
-    //       setEnteredPassword("");
-    //       setEnteredConfirmPassword("");
-
-    //       setEnteredConfirmPasswordTouched(false);
-    //       setEnteredPasswordTouched(false);
-    //       setEnteredEmailTouched(false);
-    //       setEnteredFirstNameTouched(false);
-    //       setEnteredLastNameTouched(false);
-    //       setEnteredMobileNumberTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
+        if (responseData.status === "200") {
+          // authCtx.login(responseData.token);
+          history.replace("/");
+          console.log(responseData.message);
+        } else {
+          setIsNotExist(true);
+          history.replace("/admin/delete-doctor");
+          console.log(responseData.message);
+        }
+      }catch (err) {
+        console.log({err});
+      }
   };
 
   return (
@@ -146,6 +86,10 @@ const AdminDeleteDoctorForm = () => {
           </div>
           <div className={classes.actions}>
             <button disabled={!formIsValid}>Delete</button>
+            {isLoading && (
+                <RingLoader color="white" height={80} width={80}></RingLoader>
+              )}
+              {isNotExist && <h4>Doctor does not exist</h4>}
           </div>
         </div>
       </form>

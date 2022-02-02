@@ -12,7 +12,7 @@ const PatientForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInValidCredentials, setIsInValidCredentials] = useState(false);
   const [isExsistingUser, setIsExsistingUser] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordInValid, setIsPasswordInValid] = useState(false);
 
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredFirstNameTouched, setEnteredFirstNameTouched] = useState(false);
@@ -124,6 +124,7 @@ const PatientForm = () => {
   const passwordInputChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const passwordInputBlurHandler = (event) => {
@@ -133,6 +134,7 @@ const PatientForm = () => {
   const confirmPasswordInputChangeHandler = (event) => {
     setEnteredConfirmPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const confirmPasswordInputBlurHandler = (event) => {
@@ -229,7 +231,8 @@ const PatientForm = () => {
           history.replace("/");
           console.log(responseData.message);
         } else if (enteredPassword !== enteredConfirmPassword) {
-          setIsPasswordValid(true);
+          setIsPasswordInValid(true);
+          console.log(responseData.message);
         } else {
           setIsExsistingUser(true);
           setEnteredEmail("");
@@ -401,7 +404,7 @@ const PatientForm = () => {
           {!isLogin && isExsistingUser && (
             <h4>User exists already, please login instead.</h4>
           )}
-          {!isLogin && isPasswordValid && (
+          {!isLogin && isPasswordInValid && (
             <h4>Password and Confirm Password must be same.</h4>
           )}
 

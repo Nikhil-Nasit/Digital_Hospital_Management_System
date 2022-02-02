@@ -66,36 +66,60 @@ exports.postSingup = (req, res, next) => {
           status: "422",
         });
       }
-      return bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-          const staff = new Staff({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            mobileNumber: mobileNumber,
-            address: address,
-            password: hashedPassword,
-            confirmPassword: hashedPassword,
+      if (confirmPassword == password) {
+        return bcrypt
+          .hash(password, 12)
+          .then((hashedPassword) => {
+            const staff = new Staff({
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              mobileNumber: mobileNumber,
+              address: address,
+              password: hashedPassword,
+              confirmPassword: hashedPassword,
+            });
+            return staff.save();
+          })
+          .then((result) => {
+            let token;
+            token = jwt.sign({ staffId: result.id }, "supersecret", {
+              expiresIn: "1h",
+            });
+            res.status(201).json({
+              message: "Signed up Successfully",
+              staffId: result.id,
+              token: token,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
           });
-          return staff.save();
-        })
-        .then((result) => {
-          let token;
-          token = jwt.sign({ staffId: result.id }, "supersecret", {
-            expiresIn: "1h",
-          });
-          res.status(201).json({
-            message: "Signed up Successfully",
-            staffId: result.id,
-            token: token,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
+      } else {
+        return res.json({
+          message: "Password and Confirm Password must be same",
         });
+      }
     })
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.postDelete = (req, res, next) => {
+  const { id } = req.body;
+
+  Staff.findByIdAndDelete({ _id : id }).then((staffDoc) => {
+    if (staffDoc) {
+      return res.status(200).json({
+        message: "Staff deleted",
+        status: "200",
+      });
+    } else {
+      return res.status(404).json({
+        message: "Staff does not exist",
+        status: "404",
+      });
+    }
+  });
 };

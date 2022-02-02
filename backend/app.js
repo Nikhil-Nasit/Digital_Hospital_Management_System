@@ -31,7 +31,7 @@ app.get("/", (req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb://localhost:27017/user")
+  .connect("mongodb+srv://Project:project@digital-hospital.9zafj.mongodb.net/Digital-Hospital?retryWrites=true&w=majority")
   .then(() => {
     app.listen(5000);
   })

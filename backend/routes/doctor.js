@@ -12,5 +12,6 @@ router.post(
 //   [check("password").isLength({ min: 5 })],
   doctorController.postSingup
 );
+router.delete("/delete",doctorController.postDelete);
 
 module.exports = router;

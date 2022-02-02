@@ -67,37 +67,63 @@ exports.postSingup = (req, res, next) => {
           status: "422",
         });
       }
-      return bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-          const doctor = new Doctor({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            mobileNumber: mobileNumber,
-            address: address,
-            specialization: specialization,
-            password: hashedPassword,
-            confirmPassword: hashedPassword,
+      if (confirmPassword == password) {
+        return bcrypt
+          .hash(password, 12)
+          .then((hashedPassword) => {
+            const doctor = new Doctor({
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              mobileNumber: mobileNumber,
+              address: address,
+              specialization: specialization,
+              password: hashedPassword,
+              confirmPassword: hashedPassword,
+            });
+            return doctor.save();
+          })
+          .then((result) => {
+            let token;
+            token = jwt.sign({ doctorId: result.id }, "supersecret", {
+              expiresIn: "1h",
+            });
+            res.status(201).json({
+              message: "Signed up Successfully",
+              doctorId: result.id,
+              token: token,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
           });
-          return doctor.save();
-        })
-        .then((result) => {
-          let token;
-          token = jwt.sign({ doctorId: result.id }, "supersecret", {
-            expiresIn: "1h",
-          });
-          res.status(201).json({
-            message: "Signed up Successfully",
-            doctorId: result.id,
-            token: token,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
+      } else {
+        return res.json({
+          message: "Password and Confirm Password must be same",
         });
+      }
     })
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.postDelete = (req, res, next) => {
+  const { id } = req.body;
+
+  Doctor.findByIdAndDelete({ _id : id }).then((DoctorDoc) => {
+    if (DoctorDoc) {
+      return res.status(200).json({
+        message: "Doctor deleted",
+        status: "200",
+      });
+    } else {
+      return res.status(404).json({
+        message: "Doctor does not exist",
+        status: "404",
+      });
+    }
+  }).catch((err) => {
+    console.log(err);
+  });
 };

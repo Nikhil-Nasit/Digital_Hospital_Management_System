@@ -1,13 +1,11 @@
 import { Switch, Route } from "react-router-dom";
 import React from "react";
-import Layout from "./components/Layout/Layout";
 import UserProfile from "./components/Profile/UserProfile";
 import AdminPage from "./pages/AdminPage";
 import PatientPage from "./pages/PatientPage";
 import DoctorPage from "./pages/DoctorPage";
 import HomePage from "./pages/HomePage";
 import AdminHomePage from "./pages/Admin/AdminHomePage";
-import Dummy from "./components/Layout/Dummy";
 import AdminManageDoctorPage from "./pages/Admin/AdminManageDoctorPage";
 import AdminDeleteDoctorPage from "./pages/Admin/AdminDeleteDoctorPage";
 import AdminManageStaffPage from "./pages/Admin/AdminManageStaffPage";

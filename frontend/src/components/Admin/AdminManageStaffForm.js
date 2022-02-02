@@ -8,11 +8,9 @@ const AdminManageStaffForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
-  const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isInValidCredentials, setIsInValidCredentials] = useState(false);
   const [isExsistingUser, setIsExsistingUser] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordInValid, setIsPasswordInValid] = useState(false);
 
   const [enteredAddress, setEnteredAddress] = useState("");
   const [enteredAddressTouched, setEnteredAddressTouched] = useState(false);
@@ -100,6 +98,7 @@ const AdminManageStaffForm = () => {
   const passwordInputChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const passwordInputBlurHandler = (event) => {
@@ -109,6 +108,7 @@ const AdminManageStaffForm = () => {
   const confirmPasswordInputChangeHandler = (event) => {
     setEnteredConfirmPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const confirmPasswordInputBlurHandler = (event) => {
@@ -131,99 +131,70 @@ const AdminManageStaffForm = () => {
     enteredLastNameIsValid &&
     enteredPasswordIsValid &&
     enteredConfirmPasswordIsValid &&
-    enteredMobileNumberIsValid
+    enteredMobileNumberIsValid&&
+    enteredAddressIsValid
   ) {
     formIsValid = true;
   }
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("Staff Signed Up Successfully");
-    // if (isLogin) {
-    //   setIsLoading(true);
 
-    //   try {
-    //     const response = await fetch("http://localhost:5000/login", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         email: enteredEmailLogin,
-    //         password: enteredPasswordLogin,
-    //       }),
-    //     });
+    // console.log("Staff Signed Up Successfully");
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
+    try {
+      setIsLoading(true);
 
-    //     if (responseData.status === "201") {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else {
-    //       setIsInValidCredentials(true);
-    //       setEnteredEmailLogin("");
-    //       setEnteredPasswordLogin("");
+      const response = await fetch("http://localhost:5000/staff/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: enteredFirstName,
+          lastName: enteredLastName,
+          email: enteredEmail,
+          mobileNumber: enteredMobileNumber,
+          address: enteredAddress,
+          password: enteredPassword,
+          confirmPassword: enteredConfirmPassword,
+        }),
+      });
 
-    //       setEnteredEmailLoginTouched(false);
-    //       setEnteredPasswordLoginTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // } else {
-    //   try {
-    //     setIsLoading(true);
+      const responseData = await response.json();
+      setIsLoading(false);
 
-    //     const response = await fetch("http://localhost:5000/signup", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         firstName: enteredFirstName,
-    //         lastName: enteredLastName,
-    //         email: enteredEmail,
-    //         mobileNumber: enteredMobileNumber,
-    //         password: enteredPassword,
-    //         confirmPassword: enteredConfirmPassword,
-    //       }),
-    //     });
+      if (
+        responseData.status !== "422" &&
+        enteredPassword === enteredConfirmPassword
+      ) {
+        authCtx.login(responseData.token);
+        history.replace("/");
+        console.log(responseData.message);
+      } else if (enteredPassword !== enteredConfirmPassword) {
+        setIsPasswordInValid(true);
+        console.log(responseData.message);
+      } else {
+        setIsExsistingUser(true);
+        setEnteredEmail("");
+        setEnteredFirstName("");
+        setEnteredLastName("");
+        setEnteredMobileNumber("");
+        setEnteredPassword("");
+        setEnteredConfirmPassword("");
+        setEnteredAddress("");
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
-
-    //     if (
-    //       responseData.status !== "422" &&
-    //       enteredPassword === enteredConfirmPassword
-    //     ) {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else if (enteredPassword !== enteredConfirmPassword) {
-    //       setIsPasswordValid(true);
-    //     } else {
-    //       setIsExsistingUser(true);
-    //       setEnteredEmail("");
-    //       setEnteredFirstName("");
-    //       setEnteredLastName("");
-    //       setEnteredMobileNumber("");
-    //       setEnteredPassword("");
-    //       setEnteredConfirmPassword("");
-
-    //       setEnteredConfirmPasswordTouched(false);
-    //       setEnteredPasswordTouched(false);
-    //       setEnteredEmailTouched(false);
-    //       setEnteredFirstNameTouched(false);
-    //       setEnteredLastNameTouched(false);
-    //       setEnteredMobileNumberTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
+        setEnteredConfirmPasswordTouched(false);
+        setEnteredPasswordTouched(false);
+        setEnteredEmailTouched(false);
+        setEnteredFirstNameTouched(false);
+        setEnteredLastNameTouched(false);
+        setEnteredMobileNumberTouched(false);
+        setEnteredAddressTouched(false);
+        console.log(responseData.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -233,7 +204,6 @@ const AdminManageStaffForm = () => {
       <h1>Add New Staff</h1>
 
       <form onSubmit={formSubmitHandler}>
-        {!isLogin && (
           <div>
             <div className={classes.control}>
               <label htmlFor="text">First Name</label>
@@ -340,7 +310,6 @@ const AdminManageStaffForm = () => {
               )}
             </div>
           </div>
-        )}
 
         <div className={classes.actions}>
           {!isLoading && (
@@ -349,13 +318,10 @@ const AdminManageStaffForm = () => {
           {isLoading && (
             <RingLoader color="white" height={80} width={80}></RingLoader>
           )}
-          {isLogin && isInValidCredentials && (
-            <h4>Invalid credentials, could not log you in.</h4>
-          )}
-          {!isLogin && isExsistingUser && (
+          {isExsistingUser && (
             <h4>User exists already, please login instead.</h4>
           )}
-          {!isLogin && isPasswordValid && (
+          {isPasswordInValid && (
             <h4>Password and Confirm Password must be same.</h4>
           )}
         </div>
