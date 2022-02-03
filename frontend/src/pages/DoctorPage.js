@@ -1,11 +1,13 @@
-import DoctorForm from '../components/Auth/DoctorForm';
-import Layout from '../components/Layout/Layout';
+import React from "react";
+import DoctorForm from "../components/Auth/DoctorForm";
+import MainNavigation from "./MainNavigation";
 
 const DoctorPage = () => {
   return (
-    <Layout>
+    <React.Fragment>
+      <MainNavigation></MainNavigation>
       <DoctorForm />
-    </Layout>
+    </React.Fragment>
   );
 };
 

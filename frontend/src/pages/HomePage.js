@@ -1,11 +1,12 @@
-import Layout from "../components/Layout/Layout";
+import React from "react";
 import StartingPageContent from "../components/StartingPage/StartingPageContent";
-
+import MainNavigation from "./MainNavigation";
 const HomePage = () => {
   return (
-    <Layout>
+    <React.Fragment>
+      <MainNavigation></MainNavigation>
       <StartingPageContent />
-    </Layout>
+    </React.Fragment>
   );
 };
 

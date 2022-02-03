@@ -1,12 +1,13 @@
+import React from "react";
 import AdminForm from "../components/Auth/AdminForm";
-import Layout from "../components/Layout/Layout";
+import MainNavigation from "./MainNavigation";
 
 const AdminPage = () => {
   return (
-    <Layout>
+    <React.Fragment>
+      <MainNavigation></MainNavigation>
       <AdminForm />
-    </Layout>
+    </React.Fragment>
   );
 };
-
 export default AdminPage;

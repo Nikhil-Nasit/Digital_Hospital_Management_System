@@ -1,7 +1,7 @@
 import { NavLink, useHistory } from "react-router-dom";
 import { useContext } from "react";
 import classes from "./MainNavigation.module.css";
-import AuthContext from "../../store/auth-context";
+import AuthContext from "../store/auth-context";
 
 const MainNavigation = () => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const MainNavigation = () => {
   };
   const isLoggedIn = authCtx.isLoggedIn;
   return (
-    <header className={classes.header}>
+    <header className={`${classes.header} ${classes.brown} ${classes.highlightTextOut}`}>
       <NavLink to="/">
         <div className={classes.logo}>Work in Progress</div>
       </NavLink>
@@ -21,39 +21,39 @@ const MainNavigation = () => {
         <ul>
           {!isLoggedIn && (
             <li>
-              <NavLink activeClassName={classes.active} to="/admin/login">
-                Admin
+              <NavLink activeClassName={classes.active} alt="ADMIN"to="/admin/login">
+                ADMIN
               </NavLink>
             </li>
           )}
 
           {!isLoggedIn && (
             <li>
-              <NavLink activeClassName={classes.active} to="/patient/login">
-                Patient Login
+              <NavLink activeClassName={classes.active} alt="PATIENT LOGIN"to="/patient/login">
+                PATIENT LOGIN
               </NavLink>
             </li>
           )}
 
           {!isLoggedIn && (
             <li>
-              <NavLink activeClassName={classes.active} to="/doctor/login">
-                Doctor Login
+              <NavLink activeClassName={classes.active} alt="DOCTOR LOGIN"to="/doctor/login">
+                DOCTOR LOGIN
               </NavLink>
             </li>
           )}
 
           {isLoggedIn && (
             <li>
-              <NavLink activeClassName={classes.active} to="/profile">
-                Profile
+              <NavLink activeClassName={classes.active} alt="PROFILE" to="/profile">
+                PROFILE
               </NavLink>
             </li>
           )}
 
           {isLoggedIn && (
             <li>
-              <button onClick={logoutHandler}>Logout</button>
+              <button onClick={logoutHandler} alt="LOGOUT">LOGOUT</button>
             </li>
           )}
         </ul>

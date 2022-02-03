@@ -2,8 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import classes from "./AuthForm.module.css";
-
+import classes from "./AdminForm.module.css";
 const AdminForm = () => {
   // const authCtx = useContext(AuthContext);
   const history = useHistory();
@@ -54,8 +53,8 @@ const AdminForm = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    console.log("working");
-    history.push("/admin/home");
+    // console.log("working");
+    history.replace("/admin/home");
     // if (isLogin) {
     //   setIsLoading(true);
 
@@ -146,55 +145,54 @@ const AdminForm = () => {
 
   return (
     <React.Fragment>
-      <section className={classes.auth}>
-        <h1>Admin Login</h1>
+        <section className={classes.auth}>
+          <h1>ADMIN LOGIN</h1>
 
-        <form onSubmit={formSubmitHandler}>
-        
-          {isLogin && (
-            <div>
-              <div className={classes.control}>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="abc@gmail.com"
-                  required
-                  onChange={emailInputChangeHandlerLogin}
-                  onBlur={emailInputBlurHandlerLogin}
-                  value={enteredEmailLogin}
-                />
-                {emailInputIsInvalidLogin && <h4>Email must not be empty</h4>}
+          <form onSubmit={formSubmitHandler}>
+            {isLogin && (
+              <div>
+                <div className={classes.control}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="abc@gmail.com"
+                    required
+                    onChange={emailInputChangeHandlerLogin}
+                    onBlur={emailInputBlurHandlerLogin}
+                    value={enteredEmailLogin}
+                  />
+                  {emailInputIsInvalidLogin && <h4>Email must not be empty</h4>}
+                </div>
+                <div className={classes.control}>
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                    onChange={passwordInputChangeHandlerLogin}
+                    onBlur={passwordInputBlurHandlerLogin}
+                    value={enteredPasswordLogin}
+                  />
+                  {passwordInputIsInvalidLogin && (
+                    <h4>Password must not be empty</h4>
+                  )}
+                </div>
               </div>
-              <div className={classes.control}>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                  required
-                  onChange={passwordInputChangeHandlerLogin}
-                  onBlur={passwordInputBlurHandlerLogin}
-                  value={enteredPasswordLogin}
-                />
-                {passwordInputIsInvalidLogin && (
-                  <h4>Password must not be empty</h4>
-                )}
-              </div>
+            )}
+
+            <div className={classes.actions}>
+              {!isLoading && <button disabled={!formIsValid}>Login</button>}
+              {isLoading && (
+                <RingLoader color="white" height={80} width={80}></RingLoader>
+              )}
+              {isLogin && isInValidCredentials && (
+                <h4>Invalid credentials, could not log you in.</h4>
+              )}
             </div>
-          )}
-
-          <div className={classes.actions}>
-            {!isLoading && <button disabled={!formIsValid}>Login</button>}
-            {isLoading && (
-              <RingLoader color="white" height={80} width={80}></RingLoader>
-            )}
-            {isLogin && isInValidCredentials && (
-              <h4>Invalid credentials, could not log you in.</h4>
-            )}
-          </div>
-        </form>
-      </section>
+          </form>
+        </section>
     </React.Fragment>
   );
 };

@@ -1,10 +1,12 @@
 import React from "react";
-import AdminHomePageForm from "../../components/Admin/AdminHomePageForm";
+import AdminStarting from "../../components/StartingPage/AdminStarting";
+import AdminMainNavigation from "./AdminMainNavigation";
 
 const AdminHomePage = () => {
   return (
     <React.Fragment>
-      <AdminHomePageForm></AdminHomePageForm>
+      <AdminMainNavigation></AdminMainNavigation>
+      <AdminStarting></AdminStarting>
     </React.Fragment>
   );
 };

@@ -64,7 +64,7 @@ const AdminDeleteStaffForm = () => {
   };
 
   return (
-    <div className={classes.html}>
+    <div className={classes.image}>
       <section className={classes.auth}>
         <h1>Delete Staff</h1>
 

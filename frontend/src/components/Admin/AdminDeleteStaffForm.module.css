@@ -1,6 +1,6 @@
-.html {
+.image {
     overflow-y: hidden !important;
-    background-image: url("../images/duonguyen-RlakZ84ex2g-unsplash.jpg") !important;
+    background-image: url("../images/julien-flutto-HPha3t0r4MU-unsplash.jpg") !important;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -8,22 +8,21 @@
     background-position: center;
     background-repeat: no-repeat;
   }
-  h1 {
-    border-bottom: 4px solid rgb(71, 71, 248);
+  .auth h1 {
+    border-bottom: 4px solid rgb(86, 86, 197);;
     display: inline-block;
     font-family: "Times New Roman", Times, serif;
-    color: whitesmoke;
+    color: rgb(53, 53, 150);
     font-weight: bold;
     text-align: center;
-    /* color: white; */
   }
   .auth {
-    margin: 3rem auto;
+    margin: 13rem auto;
     width: 95%;
     max-width: 27rem;
     border-radius: 10px;
     border-color: black;
-    background-color: rgba(255, 255, 255, 0.1);
+    /* background-color: rgba(255, 255, 255, 0.1); */
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     padding: 1rem;
     text-align: center;
@@ -32,14 +31,10 @@
     font-family: "Times New Roman", Times, serif;
     font-size: 18px;
     font-weight: 300;
-    /* background-color: rgb(195, 181, 255) */
-    /* z-index: 1; */
+    background-color:rgba(241, 234, 234, 0.425);
+    z-index: 1;
   }
-  
-  /* .auth h1 {
-    text-align: center;
-    color: white;
-  } */
+
   
   .control {
     margin-bottom: 0.5rem;
@@ -47,7 +42,7 @@
   
   .control label {
     display: block;
-    color: rgb(7, 57, 70);
+    color: rgb(1, 22, 27);
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
@@ -110,3 +105,4 @@
     border-color: #ccc;
     cursor: not-allowed;
   }
+  

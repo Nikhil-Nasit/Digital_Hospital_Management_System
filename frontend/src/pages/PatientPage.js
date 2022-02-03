@@ -1,11 +1,13 @@
+import React from "react";
 import PatientForm from "../components/Auth/PatientForm";
-import Layout from "../components/Layout/Layout";
+import MainNavigation from "./MainNavigation";
 
 const PatientPage = () => {
   return (
-    <Layout>
+    <React.Fragment>
+      <MainNavigation></MainNavigation>
       <PatientForm />
-    </Layout>
+    </React.Fragment>
   );
 };
 

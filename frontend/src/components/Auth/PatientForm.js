@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import classes from "./AuthForm.module.css";
+import classes from "./AdminForm.module.css";
 
 const PatientForm = () => {
   const authCtx = useContext(AuthContext);
@@ -258,7 +258,7 @@ const PatientForm = () => {
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Patient Login" : "Sign Up"}</h1>
+      <h1>{isLogin ? "PATIENT LOGIN" : "SIGN UP"}</h1>
 
       <form onSubmit={formSubmitHandler}>
         {!isLogin && (

@@ -65,7 +65,7 @@ const AdminDeleteDoctorForm = () => {
   };
 
   return (
-    <div className={classes.html}>
+    <div className={classes.image}>
     <section className={classes.auth}>
       <h1>Delete Doctor</h1>
 
@@ -95,7 +95,6 @@ const AdminDeleteDoctorForm = () => {
       </form>
     </section>
     </div>
-    
   );
 };
 

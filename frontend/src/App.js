@@ -15,40 +15,45 @@ function App() {
   return (
     <React.Fragment>
       <Switch>
-        
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path="/admin/login">
-            <AdminPage />
-          </Route>
+        <Route path="/" exact>
+          <HomePage />
+        </Route>
 
-          <Route path="/admin/home">
-            <AdminHomePage />
-          </Route>
-          <Route path="/admin/add-doctor">
-            <AdminManageDoctorPage />
-          </Route>
-          <Route path="/admin/delete-doctor">
-            <AdminDeleteDoctorPage />
-          </Route>
-          <Route path="/admin/add-staff">
-            <AdminManageStaffPage />
-          </Route>
-          <Route path="/admin/delete-staff">
-            <AdminDeleteStaffPage />
-          </Route>
+        <Route path="/admin/login" exact>
+          <AdminPage />
+        </Route>
 
-          <Route path="/patient/login">
-            <PatientPage />
-          </Route>
-          <Route path="/doctor/login">
-            <DoctorPage />
-          </Route>
-          <Route path="/profile">
-            <UserProfile />
-          </Route>
-        
+        <Route path="/patient/login" exact>
+          <PatientPage />
+        </Route>
+
+        <Route path="/doctor/login" exact>
+          <DoctorPage />
+        </Route>
+
+        <Route path="/profile" exact>
+          <UserProfile />
+        </Route>
+
+        <Route path="/admin/home" exact>
+          <AdminHomePage />
+        </Route>
+
+        <Route path="/admin/add-doctor" exact>
+          <AdminManageDoctorPage />
+        </Route>
+
+        <Route path="/admin/delete-doctor" exact>
+          <AdminDeleteDoctorPage />
+        </Route>
+
+        <Route path="/admin/add-staff" exact>
+          <AdminManageStaffPage />
+        </Route>
+
+        <Route path="/admin/delete-staff" exact>
+          <AdminDeleteStaffPage />
+        </Route>
       </Switch>
     </React.Fragment>
   );
