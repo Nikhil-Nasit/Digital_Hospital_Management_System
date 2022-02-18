@@ -8,7 +8,7 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-.auth h1 {
+.auth h3 {
   border-bottom: 4px solid rgb(86, 86, 197);;
   display: inline-block;
   font-family: "Times New Roman", Times, serif;
@@ -93,7 +93,7 @@
   color: #1f5de4;
 }
 
-h4 {
+h6 {
   color: red;
 }
 

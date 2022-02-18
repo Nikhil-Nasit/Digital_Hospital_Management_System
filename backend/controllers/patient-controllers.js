@@ -1,7 +1,72 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 // const { validationResult } = require('express-validator');
 const User = require("../models/patient");
+
+exports.uploadDocument = async (req, res, next) => {
+  const id = req.params.patientId;
+  console.log(id);
+  let patient;
+  try {
+    patient = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: { document: req.file.path } },
+      { upsert: true, new: true }
+    ).then((data) => {
+      if (data) {
+        // const patientDetails : data;
+        // res.json({patient:data});
+        res.status(201).json({
+          status: "201",
+        });
+      } else {
+        console.log("Error");
+      }
+    });
+  } catch (err) {
+    console.log("Error !");
+  }
+  // console.log(patient);
+  // res.json({patient:patient});
+
+  // res.json({ patient: patientDetails });
+};
+
+exports.findPatient = (req, res, next) => {
+  const { id } = req.body;
+
+  User.findById({ _id: id })
+    .then((user) => {
+      if (!user) {
+        res.status(401).json({
+          message: "Invalid credentials, could not log you in.",
+          status: "401",
+        });
+      } else {
+        res.status(201).json({
+          message: "Correct PatinetID",
+          status: "201",
+          patientId: user.id,
+        });
+        // console.log(user);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getPatient = async (req, res, next) => {
+  const id = req.params.patientId;
+  let patient;
+  try {
+    patient = await User.findById({ _id: id }, "-password");
+  } catch (err) {
+    console.log(err);
+  }
+  res.json({ patient: patient });
+};
 
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
@@ -26,7 +91,7 @@ exports.postLogin = (req, res, next) => {
               res.status(201).json({
                 message: "Login Successfully",
                 status: "201",
-                userId: user.id,
+                patientId: user.id,
                 token: token,
               });
               // console.log(user);

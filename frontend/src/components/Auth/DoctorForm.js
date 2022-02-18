@@ -1,9 +1,10 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import classes from "./AdminForm.module.css";
-
+import classes from "./DoctorForm.module.css";
+import { Form, Group ,Card} from "react-bootstrap";
+import DoctorImage from "../images/Geometric2.png";
 const DoctorForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
@@ -54,7 +55,6 @@ const DoctorForm = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    history.push("/");
     if (isLogin) {
       setIsLoading(true);
 
@@ -75,8 +75,13 @@ const DoctorForm = () => {
 
         if (responseData.status === "201") {
           authCtx.login(responseData.token);
-          history.replace("/");
-          console.log(responseData.message);
+          window.sessionStorage.setItem("doctorId", responseData.doctorId);
+          history.replace({
+            pathname: "/doctor/detail",
+            // doctorId : responseData.doctorDetail._id
+          });
+          // console.log(responseData.message);
+          // console.log(responseData.doctorId);
         } else {
           setIsInValidCredentials(true);
           setEnteredEmailLogin("");
@@ -89,12 +94,15 @@ const DoctorForm = () => {
       } catch (err) {
         console.log(err);
       }
-    } 
+    }
   };
 
   return (
+    <React.Fragment>
+      <Card.Img src={DoctorImage} alt="Card image" height={700}/>
+      <Card.ImgOverlay>
     <section className={classes.auth}>
-      <h1>DOCTOR LOGIN</h1>
+      <h3>DOCTOR LOGIN</h3>
 
       <form onSubmit={formSubmitHandler}>
         {isLogin && (
@@ -110,7 +118,11 @@ const DoctorForm = () => {
                 onBlur={emailInputBlurHandlerLogin}
                 value={enteredEmailLogin}
               />
-              {emailInputIsInvalidLogin && <h4>Email must not be empty</h4>}
+              {emailInputIsInvalidLogin && (
+                <div className="p-3">
+                  <h6>Email must not be empty</h6>
+               </div>
+              )}
             </div>
             <div className={classes.control}>
               <label htmlFor="password">Password</label>
@@ -123,9 +135,10 @@ const DoctorForm = () => {
                 onBlur={passwordInputBlurHandlerLogin}
                 value={enteredPasswordLogin}
               />
-              {passwordInputIsInvalidLogin && (
-                <h4>Password must not be empty</h4>
-              )}
+              {passwordInputIsInvalidLogin && 
+              <div className="p-3">
+              <h6>Password must not be empty</h6>
+              </div>}
             </div>
           </div>
         )}
@@ -136,11 +149,15 @@ const DoctorForm = () => {
             <RingLoader color="white" height={80} width={80}></RingLoader>
           )}
           {isLogin && isInValidCredentials && (
-            <h4>Invalid credentials, could not log you in.</h4>
+            <div className="p-3">
+              <h6>Invalid credentials, could not log you in.</h6>
+            </div>
           )}
         </div>
       </form>
     </section>
+    </Card.ImgOverlay>
+    </React.Fragment>
   );
 };
 

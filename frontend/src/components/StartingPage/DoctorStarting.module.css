@@ -1,0 +1,21 @@
+/* .image {
+    overflow-y: hidden !important;
+    background-image: url("../images/nordwood-themes-kRNZiGKtz48-unsplash.jpg") !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  } */
+  .starting {
+    margin: 18rem auto;
+    text-align: center;
+  }
+  
+  .image .starting h1{
+    text-align: center;
+    font-size: 5rem;
+    color: rgb(90, 80, 80);
+  }
+  

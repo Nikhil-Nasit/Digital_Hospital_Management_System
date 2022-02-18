@@ -1,0 +1,26 @@
+.active {
+    color: rgb(13, 230, 230);
+    padding-bottom: 0.25rem;
+    border-bottom: 4px solid rgb(13, 230, 230);
+    display: inline-block;
+  }
+
+  .auth {
+    margin: 6rem auto;
+    width: 95%;
+    max-width: 30rem;
+    border-radius: 6px;
+    background-color: #b3f3f3;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    text-align: center;
+  }
+
+.center{
+  margin: 4rem auto;
+  text-align: center;
+}
+
+  h5{
+    text-align: center;
+  }

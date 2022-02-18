@@ -31,6 +31,10 @@ const staffSchema = new Schema({
     type: String,
     required: true,
   },
+  __v:{
+    type: Number,
+    select: false,
+  }
 });
 
 module.exports = mongoose.model("Staff", staffSchema);

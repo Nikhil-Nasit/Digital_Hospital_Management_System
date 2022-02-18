@@ -75,9 +75,8 @@
   transform: scale(1.2);
 }
 
-.header a.active {
-  color: #c291e2;
+.active {
   padding-bottom: 0.25rem;
-  border-bottom: 4px solid #c291e2;
+  border-bottom: 4px solid rgb(0, 206, 189);
   display: inline-block;
 }

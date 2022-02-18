@@ -8,9 +8,8 @@ const AdminDeleteStaffForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
-
   const [isLoading, setIsLoading] = useState(false);
-  const [isNotExist , setIsNotExist] = useState(false);
+  const [isNotExist, setIsNotExist] = useState(false);
 
   const [enteredStaffId, setEnteredStaffId] = useState("");
   const [enteredStaffIdTouched, setEnteredStaffIdTouched] = useState(false);
@@ -18,12 +17,12 @@ const AdminDeleteStaffForm = () => {
   const enteredStaffIdIsValid = enteredStaffId.trim() !== "";
   const staffIdInputIsInValid = !enteredStaffIdIsValid && enteredStaffIdTouched;
 
-  const doctorIdInputChangeHandler = (event) => {
+  const staffIdInputChangeHandler = (event) => {
     setEnteredStaffId(event.target.value);
     setIsNotExist(false);
   };
 
-  const doctorIdInputBlurHandler = (event) => {
+  const staffIdInputBlurHandler = (event) => {
     setEnteredStaffIdTouched(true);
   };
 
@@ -51,7 +50,7 @@ const AdminDeleteStaffForm = () => {
 
       if (responseData.status === "200") {
         // authCtx.login(responseData.token);
-        history.replace("/");
+        history.replace("/admin/home");
         console.log(responseData.message);
       } else {
         setIsNotExist(true);
@@ -66,8 +65,7 @@ const AdminDeleteStaffForm = () => {
   return (
     <div className={classes.image}>
       <section className={classes.auth}>
-        <h1>Delete Staff</h1>
-
+        <h3>Delete Staff</h3>
         <form onSubmit={formSubmitHandler}>
           <div>
             <div className={classes.control}>
@@ -77,18 +75,26 @@ const AdminDeleteStaffForm = () => {
                 id="id"
                 placeholder="Enter Staff ID"
                 required
-                onChange={doctorIdInputChangeHandler}
-                onBlur={doctorIdInputBlurHandler}
+                onChange={staffIdInputChangeHandler}
+                onBlur={staffIdInputBlurHandler}
                 value={enteredStaffId}
               />
-              {staffIdInputIsInValid && <h4>Staff ID must not be empty</h4>}
+              {staffIdInputIsInValid && (
+                <div className="p-3">
+                  <h6>Staff ID must not be empty</h6>
+                </div>
+              )}
             </div>
             <div className={classes.actions}>
               <button disabled={!formIsValid}>Delete</button>
               {isLoading && (
                 <RingLoader color="white" height={80} width={80}></RingLoader>
               )}
-              {isNotExist && <h4>Staff does not exist</h4>}
+              {isNotExist && (
+                <div className="p-3">
+                  <h6>Staff does not exist</h6>
+                </div>
+              )}
             </div>
           </div>
         </form>

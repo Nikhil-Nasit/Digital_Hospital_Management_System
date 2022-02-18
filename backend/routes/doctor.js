@@ -7,11 +7,10 @@ const doctorController = require("../controllers/doctor-controllers");
 
 router.post("/login", doctorController.postLogin);
 
-router.post(
-  "/signup",
-//   [check("password").isLength({ min: 5 })],
-  doctorController.postSingup
-);
-router.delete("/delete",doctorController.postDelete);
+router.post("/signup", doctorController.postSingup);
+
+router.delete("/delete", doctorController.postDelete);
+
+router.get("/detail/:doctorId", doctorController.getDoctor);
 
 module.exports = router;

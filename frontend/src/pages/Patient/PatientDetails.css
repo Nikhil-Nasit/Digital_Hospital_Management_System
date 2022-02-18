@@ -1,0 +1,32 @@
+.patient {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+}
+
+.patient h2 {
+  font-size: 2rem;
+  color: #f7e702;
+}
+
+.patient h3 {
+  color: #eccf77;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.background1 {
+  background: url("../../components/images/transparent.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* font-family:Verdana, Geneva, Tahoma, sans-serif; */
+}
+
+.text-center {
+  border-bottom: pink;
+}

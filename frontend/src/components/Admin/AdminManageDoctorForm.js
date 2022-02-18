@@ -185,7 +185,7 @@ const AdminManageDoctorForm = () => {
         enteredPassword === enteredConfirmPassword
       ) {
         authCtx.login(responseData.token);
-        history.replace("/");
+        history.replace("/admin/home");
         console.log(responseData.message);
         console.log(responseData.doctorId);
         console.log(responseData.token);
@@ -221,7 +221,7 @@ const AdminManageDoctorForm = () => {
   return (
     <div className={classes.image}>
       <section className={classes.auth}>
-        <h1>Add New Doctor</h1>
+        <h3>Add New Doctor</h3>
 
         <form onSubmit={formSubmitHandler}>
           <div>
@@ -236,7 +236,11 @@ const AdminManageDoctorForm = () => {
                 onBlur={firstNameInputBlurHandler}
                 value={enteredFirstName}
               />
-              {firstNameInputIsInValid && <h4>First Name must not be empty</h4>}
+              {firstNameInputIsInValid && (
+                <div className="p-3">
+                  <h6>First Name must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -250,7 +254,11 @@ const AdminManageDoctorForm = () => {
                 onBlur={lastNameInputBlurHandler}
                 value={enteredLastName}
               />
-              {lastNameInputIsInValid && <h4>Last Name must not be empty</h4>}
+              {lastNameInputIsInValid && (
+                <div className="p-3">
+                  <h6>Last Name must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -264,7 +272,11 @@ const AdminManageDoctorForm = () => {
                 onBlur={emailInputBlurHandler}
                 value={enteredEmail}
               />
-              {emailInputIsInValid && <h4>Email must not be empty</h4>}
+              {emailInputIsInValid && (
+                <div className="p-3">
+                  <h6>Email must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -280,7 +292,9 @@ const AdminManageDoctorForm = () => {
                 value={enteredMobileNumber}
               />
               {mobileNumberInputIsInValid && (
-                <h4>Mobile Number must not be empty</h4>
+                <div classname="p-3">
+                  <h6>Mobile Number must not be empty</h6>
+                </div>
               )}
             </div>
 
@@ -295,7 +309,11 @@ const AdminManageDoctorForm = () => {
                 onBlur={addressInputBlurHandler}
                 value={enteredAddress}
               />
-              {addressInputIsInvalid && <h4>Address must not be empty</h4>}
+              {addressInputIsInvalid && (
+                <div className="p-3">
+                  <h6>Address must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -310,7 +328,9 @@ const AdminManageDoctorForm = () => {
                 value={enteredSpecialization}
               />
               {specializationInputIsInValid && (
-                <h4>Specialization must not be empty</h4>
+                <div className="p-3">
+                  <h6>Specialization must not be empty</h6>
+                </div>
               )}
             </div>
 
@@ -326,7 +346,11 @@ const AdminManageDoctorForm = () => {
                 onBlur={passwordInputBlurHandler}
                 value={enteredPassword}
               />
-              {passwordInputIsInValid && <h4>Password must not be empty</h4>}
+              {passwordInputIsInValid && (
+                <div className="p-3">
+                  <h6>Password must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -342,7 +366,9 @@ const AdminManageDoctorForm = () => {
                 value={enteredConfirmPassword}
               />
               {ConfirmPasswordInputIsInValid && (
-                <h4>Confirm Password must not be empty</h4>
+                <div className="p-3">
+                  <h6>Confirm Password must not be empty</h6>
+                </div>
               )}
             </div>
           </div>
@@ -355,10 +381,14 @@ const AdminManageDoctorForm = () => {
               <RingLoader color="white" height={80} width={80}></RingLoader>
             )}
             {isExsistingUser && (
-              <h4>User exists already, please login instead.</h4>
+              <div className="p-3">
+                <h6>User exists already, please login instead.</h6>
+              </div>
             )}
             {isPasswordInValid && (
-              <h4>Password and Confirm Password must be same.</h4>
+              <div className="p-3">
+                <h6>Password and Confirm Password must be same.</h6>
+              </div>
             )}
           </div>
         </form>

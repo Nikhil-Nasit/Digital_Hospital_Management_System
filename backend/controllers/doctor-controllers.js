@@ -3,6 +3,17 @@ const jwt = require("jsonwebtoken");
 // const { validationResult } = require('express-validator');
 const Doctor = require("../models/doctor");
 
+exports.getDoctor = async (req, res, next) => {
+  const id = req.params.doctorId;
+  let doctor;
+  try {
+    doctor = await Doctor.findById({_id : id}, '-password');
+  } catch (err) {
+    console.log(err);
+  }
+  res.json({doctor : doctor});
+};
+
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -26,7 +37,7 @@ exports.postLogin = (req, res, next) => {
               res.status(201).json({
                 message: "Login Successfully",
                 status: "201",
-                doctorId: doctor.id,
+                doctorId: doctor._id,
                 token: token,
               });
               // console.log(user);

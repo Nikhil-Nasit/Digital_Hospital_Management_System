@@ -1,9 +1,11 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import classes from "./AdminForm.module.css";
-
+import PatientImage from "../images/Geometric1.png";
+//import classes from "./AdminForm.module.css";
+import classes from "./PatientForm.module.css";
+import { Form, Group, Card } from "react-bootstrap";
 const PatientForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
@@ -187,7 +189,8 @@ const PatientForm = () => {
 
         if (responseData.status === "201") {
           authCtx.login(responseData.token);
-          history.replace("/");
+          window.sessionStorage.setItem("patientId", responseData.patientId);
+          history.replace("/patient/detail");
           console.log(responseData.message);
         } else {
           setIsInValidCredentials(true);
@@ -228,7 +231,8 @@ const PatientForm = () => {
           enteredPassword === enteredConfirmPassword
         ) {
           authCtx.login(responseData.token);
-          history.replace("/");
+          window.sessionStorage.setItem("userId", responseData.userId);
+          history.replace("/patient/home");
           console.log(responseData.message);
         } else if (enteredPassword !== enteredConfirmPassword) {
           setIsPasswordInValid(true);
@@ -257,167 +261,204 @@ const PatientForm = () => {
   };
 
   return (
-    <section className={classes.auth}>
-      <h1>{isLogin ? "PATIENT LOGIN" : "SIGN UP"}</h1>
+    <React.Fragment>
+      <Card.Img src={PatientImage} alt="Card image" height={1050} />
+      <Card.ImgOverlay>
+        <section className={classes.auth}>
+          <h3>{isLogin ? "PATIENT LOGIN" : "SIGN UP"}</h3>
 
-      <form onSubmit={formSubmitHandler}>
-        {!isLogin && (
-          <div>
-            <div className={classes.control}>
-              <label htmlFor="text">First Name</label>
-              <input
-                type="text"
-                id="fname"
-                placeholder="First Name"
-                required
-                onChange={firstNameInputChangeHandler}
-                onBlur={firstNameInputBlurHandler}
-                value={enteredFirstName}
-              />
-              {firstNameInputIsInValid && <h4>First Name must not be empty</h4>}
-            </div>
+          <form onSubmit={formSubmitHandler}>
+            {!isLogin && (
+              <div>
+                <div className={classes.control}>
+                  <label htmlFor="text">First Name</label>
+                  <input
+                    type="text"
+                    id="fname"
+                    placeholder="First Name"
+                    required
+                    onChange={firstNameInputChangeHandler}
+                    onBlur={firstNameInputBlurHandler}
+                    value={enteredFirstName}
+                  />
+                  {firstNameInputIsInValid && (
+                    <div className="p-3">
+                      <h6>First Name must not be empty</h6>
+                    </div>
+                  )}
+                </div>
 
-            <div className={classes.control}>
-              <label htmlFor="text">Last Name</label>
-              <input
-                type="text"
-                id="lname"
-                placeholder="Last Name"
-                required
-                onChange={lastNameInputChangeHandler}
-                onBlur={lastNameInputBlurHandler}
-                value={enteredLastName}
-              />
-              {lastNameInputIsInValid && <h4>Last Name must not be empty</h4>}
-            </div>
+                <div className={classes.control}>
+                  <label htmlFor="text">Last Name</label>
+                  <input
+                    type="text"
+                    id="lname"
+                    placeholder="Last Name"
+                    required
+                    onChange={lastNameInputChangeHandler}
+                    onBlur={lastNameInputBlurHandler}
+                    value={enteredLastName}
+                  />
+                  {lastNameInputIsInValid && (
+                    <div className="p-3">
+                      <h6>Last Name must not be empty</h6>
+                    </div>
+                  )}
+                </div>
 
-            <div className={classes.control}>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                placeholder="abc@gmail.com"
-                id="email"
-                required
-                onChange={emailInputChangeHandler}
-                onBlur={emailInputBlurHandler}
-                value={enteredEmail}
-              />
-              {emailInputIsInValid && <h4>Email must not be empty</h4>}
-            </div>
+                <div className={classes.control}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    placeholder="abc@gmail.com"
+                    id="email"
+                    required
+                    onChange={emailInputChangeHandler}
+                    onBlur={emailInputBlurHandler}
+                    value={enteredEmail}
+                  />
+                  {emailInputIsInValid && (
+                    <div className="p-3">
+                      <h6>Email must not be empty</h6>
+                    </div>
+                  )}
+                </div>
 
-            <div className={classes.control}>
-              <label htmlFor="text">Mobile Number</label>
-              <input
-                type="text"
-                id="number"
-                placeholder="10 digit mobile number"
-                pattern="[0-9]{10}"
-                required
-                onChange={mobileNumberInputChangeHandler}
-                onBlur={mobileNumberInputBlurHandler}
-                value={enteredMobileNumber}
-              />
-              {mobileNumberInputIsInValid && (
-                <h4>Mobile Number must not be empty</h4>
+                <div className={classes.control}>
+                  <label htmlFor="text">Mobile Number</label>
+                  <input
+                    type="text"
+                    id="number"
+                    placeholder="10 digit mobile number"
+                    pattern="[0-9]{10}"
+                    required
+                    onChange={mobileNumberInputChangeHandler}
+                    onBlur={mobileNumberInputBlurHandler}
+                    value={enteredMobileNumber}
+                  />
+                  {mobileNumberInputIsInValid && (
+                    <div className="p-3">
+                      <h6>Mobile Number must not be empty</h6>
+                    </div>
+                  )}
+                </div>
+
+                <div className={classes.control}>
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                    minLength="6"
+                    onChange={passwordInputChangeHandler}
+                    onBlur={passwordInputBlurHandler}
+                    value={enteredPassword}
+                  />
+                  {passwordInputIsInValid && (
+                    <div className="p-3">
+                      <h6>Password must not be empty</h6>
+                    </div>
+                  )}
+                </div>
+
+                <div className={classes.control}>
+                  <label htmlFor="password">Confirm Password</label>
+                  <input
+                    type="password"
+                    id="cpassword"
+                    placeholder="Confirm Password"
+                    required
+                    minLength="6"
+                    onChange={confirmPasswordInputChangeHandler}
+                    onBlur={confirmPasswordInputBlurHandler}
+                    value={enteredConfirmPassword}
+                  />
+                  {ConfirmPasswordInputIsInValid && (
+                    <div className="p-3">
+                      <h6>Confirm Password must not be empty</h6>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {isLogin && (
+              <div>
+                <div className={classes.control}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="abc@gmail.com"
+                    required
+                    onChange={emailInputChangeHandlerLogin}
+                    onBlur={emailInputBlurHandlerLogin}
+                    value={enteredEmailLogin}
+                  />
+                  {emailInputIsInvalidLogin && (
+                    <div className="p-3">
+                      <h6>Email must not be empty</h6>
+                    </div>
+                  )}
+                </div>
+                <div className={classes.control}>
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                    onChange={passwordInputChangeHandlerLogin}
+                    onBlur={passwordInputBlurHandlerLogin}
+                    value={enteredPasswordLogin}
+                  />
+                  {passwordInputIsInvalidLogin && (
+                    <div className="p-3">
+                      <h6>Password must not be empty</h6>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className={classes.actions}>
+              {!isLoading && (
+                <button disabled={!formIsValid}>
+                  {isLogin ? "Login" : "Create Account"}
+                </button>
               )}
-            </div>
-
-            <div className={classes.control}>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                required
-                minLength="6"
-                onChange={passwordInputChangeHandler}
-                onBlur={passwordInputBlurHandler}
-                value={enteredPassword}
-              />
-              {passwordInputIsInValid && <h4>Password must not be empty</h4>}
-            </div>
-
-            <div className={classes.control}>
-              <label htmlFor="password">Confirm Password</label>
-              <input
-                type="password"
-                id="cpassword"
-                placeholder="Confirm Password"
-                required
-                minLength="6"
-                onChange={confirmPasswordInputChangeHandler}
-                onBlur={confirmPasswordInputBlurHandler}
-                value={enteredConfirmPassword}
-              />
-              {ConfirmPasswordInputIsInValid && (
-                <h4>Confirm Password must not be empty</h4>
+              {isLoading && (
+                <RingLoader color="white" height={80} width={80}></RingLoader>
               )}
-            </div>
-          </div>
-        )}
-
-        {isLogin && (
-          <div>
-            <div className={classes.control}>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                placeholder="abc@gmail.com"
-                required
-                onChange={emailInputChangeHandlerLogin}
-                onBlur={emailInputBlurHandlerLogin}
-                value={enteredEmailLogin}
-              />
-              {emailInputIsInvalidLogin && <h4>Email must not be empty</h4>}
-            </div>
-            <div className={classes.control}>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                required
-                onChange={passwordInputChangeHandlerLogin}
-                onBlur={passwordInputBlurHandlerLogin}
-                value={enteredPasswordLogin}
-              />
-              {passwordInputIsInvalidLogin && (
-                <h4>Password must not be empty</h4>
+              {isLogin && isInValidCredentials && (
+                <div className="p-3">
+                  <h6>Invalid credentials, could not log you in.</h6>
+                </div>
               )}
+              {!isLogin && isExsistingUser && (
+                <div className="p-3">
+                  <h6>User exists already, please login instead.</h6>
+                </div>
+              )}
+              {!isLogin && isPasswordInValid && (
+                <div className="p-3">
+                  <h6>Password and Confirm Password must be same.</h6>
+                </div>
+              )}
+
+              <button
+                type="button"
+                className={classes.toggle}
+                onClick={switchAuthModeHandler}
+              >
+                {isLogin ? "Create new account" : "Login with existing account"}
+              </button>
             </div>
-          </div>
-        )}
-
-        <div className={classes.actions}>
-          {!isLoading && (
-            <button disabled={!formIsValid}>
-              {isLogin ? "Login" : "Create Account"}
-            </button>
-          )}
-          {isLoading && (
-            <RingLoader color="white" height={80} width={80}></RingLoader>
-          )}
-          {isLogin && isInValidCredentials && (
-            <h4>Invalid credentials, could not log you in.</h4>
-          )}
-          {!isLogin && isExsistingUser && (
-            <h4>User exists already, please login instead.</h4>
-          )}
-          {!isLogin && isPasswordInValid && (
-            <h4>Password and Confirm Password must be same.</h4>
-          )}
-
-          <button
-            type="button"
-            className={classes.toggle}
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? "Create new account" : "Login with existing account"}
-          </button>
-        </div>
-      </form>
-    </section>
+          </form>
+        </section>
+      </Card.ImgOverlay>
+    </React.Fragment>
   );
 };
 

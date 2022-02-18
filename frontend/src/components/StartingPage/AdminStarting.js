@@ -7,7 +7,7 @@ const AdminStarting = () => {
     <React.Fragment>
       <div className={classes.image}>
       <section className={classes.starting}>
-        <h1>Welcome</h1>
+        <h1>Welcome Admin</h1>
         {/* <Slider></Slider> */}
       </section>
       </div>

@@ -10,6 +10,20 @@ import AdminManageDoctorPage from "./pages/Admin/AdminManageDoctorPage";
 import AdminDeleteDoctorPage from "./pages/Admin/AdminDeleteDoctorPage";
 import AdminManageStaffPage from "./pages/Admin/AdminManageStaffPage";
 import AdminDeleteStaffPage from "./pages/Admin/AdminDeleteStaffPage";
+import DoctorHome from "./pages/Doctor/DoctorHomePage";
+import DoctorContactUs from "./pages/Doctor/DoctorContactUs";
+import DoctorAboutUs from "./pages/Doctor/DoctorAboutUs";
+import DoctorDetails from "./pages/Doctor/DoctorDetails";
+import PatientHome from "./pages/Patient/PatientHomePage";
+import PatientContactUs from "./pages/Patient/PatientContactUs";
+import PatientAboutUs from "./pages/Patient/PatientAboutUs";
+import PatientDetails from "./pages/Patient/PatientDetails";
+import HomeAboutUs from "./pages/HomeAboutUs";
+import HomeContactUs from "./pages/HomeContactUs";
+import StaffPage from "./pages/StaffPage";
+import StaffHome from "./pages/Staff/StaffHomePage";
+import UploadDocument from "./pages/Staff/UploadDocument";
+import UploadPDFDocument from "./pages/Staff/UploadPDFDocument";
 
 function App() {
   return (
@@ -29,6 +43,66 @@ function App() {
 
         <Route path="/doctor/login" exact>
           <DoctorPage />
+        </Route>
+
+        <Route path="/staff/login" exact>
+          <StaffPage />
+        </Route>
+
+        <Route path="/staff/home" exact>
+          <StaffHome />
+        </Route>
+
+        <Route path="/staff/manage-patient-id" exact>
+          <UploadDocument />
+        </Route>
+
+        <Route path="/staff/upload-patient-document" exact>
+          <UploadPDFDocument />
+        </Route>
+
+        <Route path="/staff/delete-patient-document" exact>
+          <StaffHome />
+        </Route>
+
+        <Route path="/doctor/home" exact>
+          <DoctorHome />
+        </Route>
+
+        <Route path="/doctor/detail" exact>
+          <DoctorDetails />
+        </Route>
+
+        <Route path="/doctor/contact" exact>
+          <DoctorContactUs />
+        </Route>
+
+        <Route path="/doctor/about" exact>
+          <DoctorAboutUs />
+        </Route>
+
+        <Route path="/patient/home" exact>
+          <PatientHome />
+        </Route>
+
+        <Route path="/patient/detail" exact>
+          <PatientDetails />
+        </Route>
+
+        <Route path="/patient/contact" exact>
+          <PatientContactUs />
+        </Route>
+
+        <Route path="/patient/about" exact>
+          <PatientAboutUs />
+        </Route>
+
+        <Route path="/about" exact>
+          <HomeAboutUs />
+        </Route>
+
+        <Route path="/contact" exact>
+          <HomeContactUs />
         </Route>
 
         <Route path="/profile" exact>
