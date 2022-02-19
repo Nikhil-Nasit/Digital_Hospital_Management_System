@@ -5,19 +5,23 @@ const path = require("path");
 const User = require("../models/patient");
 
 exports.uploadDocument = async (req, res, next) => {
-  const id = req.params.patientId;
+ 
+  const id = req.body.patient;
+  console.log("Hello");
   console.log(id);
   let patient;
   try {
     patient = await User.findOneAndUpdate(
       { _id: id },
-      { $set: { document: req.file.path } },
+      { $push: { documents: { patientDoc: req.file.path,  } } },
       { upsert: true, new: true }
     ).then((data) => {
       if (data) {
         // const patientDetails : data;
         // res.json({patient:data});
+        // console.log(data);
         res.status(201).json({
+          data: data,
           status: "201",
         });
       } else {

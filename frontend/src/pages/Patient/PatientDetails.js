@@ -74,6 +74,9 @@ const PatientDetails = () => {
                 Mobile Number : {patient.mobileNumber}
               </ListGroupItem>
               <ListGroupItem style={{ fontFamily: "verdana" }}>
+                
+              </ListGroupItem>
+              <ListGroupItem style={{ fontFamily: "verdana" }}>
                 Address :{" "}
               </ListGroupItem>
               <ListGroupItem style={{ fontFamily: "verdana" }}>

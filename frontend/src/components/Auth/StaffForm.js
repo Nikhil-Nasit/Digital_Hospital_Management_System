@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import classes from "./AdminForm.module.css";
+import classes from "./StaffForm.module.css";
+import StaffImage from "../images/Geometric5.png";
 import { Card } from "react-bootstrap";
 
 const StaffForm = () => {
@@ -100,9 +101,8 @@ const StaffForm = () => {
   return (
     <React.Fragment>
       <Card.Img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpEd4pHlkPIwWbqsep-GPUHv_fWAdZvGXO1g&usqp=CAU"
-        alt="Card image"
-        height={700}
+        src={StaffImage} alt="Staff Image"
+        height={850}
       />
       <Card.ImgOverlay>
         <section className={classes.auth}>

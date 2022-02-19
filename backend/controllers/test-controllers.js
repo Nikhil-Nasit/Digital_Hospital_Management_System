@@ -1,5 +1,4 @@
 const multer = require('multer');
-const { v1 : uuidv1 } = require('uuid');
 
 // const MIME_TYPE_MAP = {
 //     'application/pdf':'pdf',
@@ -13,7 +12,7 @@ const upload = multer({
         filename: (req,file,cb) => {
             const ext = file.mimetype.split('/')[1];
             console.log(ext);
-            cb(null, uuidv1()+file.originalname);
+            cb(null,file.originalname);
         }
     }),
     fileFilter: (req,file,cb) => {
@@ -30,4 +29,13 @@ const upload = multer({
 //     dest:'public/'
 // })
 
-exports.uploadFile = upload.single('file');
+exports.uploadImage = upload.single('file');
+
+exports.upload = (req,res,next) => {
+
+    console.log(req.file.path);
+    console.log(req.body.patient);
+    res.status(200).json({
+        success:'Success',
+    });
+};

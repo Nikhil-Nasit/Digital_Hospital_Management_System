@@ -27,10 +27,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  document:{
-    type: String,
-    // required: true,
-  }
+  documents: [
+    {
+      patientDoc: String,
+      _id: 0
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", userSchema);

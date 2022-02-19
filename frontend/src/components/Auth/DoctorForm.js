@@ -99,7 +99,7 @@ const DoctorForm = () => {
 
   return (
     <React.Fragment>
-      <Card.Img src={DoctorImage} alt="Card image" height={700}/>
+      <Card.Img src={DoctorImage} alt="Card image" height={850}/>
       <Card.ImgOverlay>
     <section className={classes.auth}>
       <h3>DOCTOR LOGIN</h3>

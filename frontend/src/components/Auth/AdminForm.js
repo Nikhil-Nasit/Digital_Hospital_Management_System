@@ -95,7 +95,7 @@ const AdminForm = () => {
 
   return (
     <React.Fragment>
-      <Card.Img src={AdminImage} alt="Card image" height={700}/>
+      <Card.Img src={AdminImage} alt="Card image" height={850}/>
       <Card.ImgOverlay>
       <section className={classes.auth}>
         <h3>ADMIN LOGIN</h3>

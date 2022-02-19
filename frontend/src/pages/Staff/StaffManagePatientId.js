@@ -51,9 +51,9 @@ const StaffManagePatientId = () => {
       if (responseData.status === "201") {
         // authCtx.login(responseData.token);
         history.replace("/staff/upload-patient-document");
-        console.log(responseData.message);
+        // console.log(responseData.message);
 
-        console.log(responseData.patientId);
+        // console.log(responseData.patientId);
         localStorage.setItem("patientId",responseData.patientId);
       } else {
         setIsNotExist(true);
