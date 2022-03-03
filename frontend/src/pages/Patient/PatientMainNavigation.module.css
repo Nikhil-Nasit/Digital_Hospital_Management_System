@@ -78,7 +78,7 @@
     transform: scale(1.2);
   }
   
-  .header a.active {
+.active {
     color: rgb(13, 230, 230);
     padding-bottom: 0.25rem;
     border-bottom: 4px solid rgb(13, 230, 230);

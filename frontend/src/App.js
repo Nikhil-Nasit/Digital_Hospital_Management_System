@@ -24,7 +24,13 @@ import StaffPage from "./pages/StaffPage";
 import StaffHome from "./pages/Staff/StaffHomePage";
 import UploadDocument from "./pages/Staff/UploadDocument";
 import UploadPDFDocument from "./pages/Staff/UploadPDFDocument";
-
+import PatientDocuments from "./pages/Patient/PatientDocuments";
+import SearchDoctor from "./pages/Patient/SearchDoctor";
+import Map from "./pages/Patient/Map";
+import UpdateProfile from "./pages/Patient/UpdateProfile";
+import UpdateDoctorProfile from "./pages/Doctor/UpdateDoctorProfile";
+import UpdateStaffProfile from "./pages/Staff/UpdateStaffProfile";
+import StaffDetail from "./pages/Staff/StaffDetail";
 function App() {
   return (
     <React.Fragment>
@@ -61,8 +67,12 @@ function App() {
           <UploadPDFDocument />
         </Route>
 
-        <Route path="/staff/delete-patient-document" exact>
-          <StaffHome />
+        <Route path="/staff/update-profile" exact>
+          <UpdateStaffProfile />
+        </Route>
+
+        <Route path="/staff/detail" exact>
+          <StaffDetail />
         </Route>
 
         <Route path="/doctor/home" exact>
@@ -81,6 +91,10 @@ function App() {
           <DoctorAboutUs />
         </Route>
 
+        <Route path="/doctor/update-profile" exact>
+          <UpdateDoctorProfile />
+        </Route>
+
         <Route path="/patient/home" exact>
           <PatientHome />
         </Route>
@@ -89,12 +103,28 @@ function App() {
           <PatientDetails />
         </Route>
 
+        <Route path="/patient/search-doctor" exact>
+          <SearchDoctor />
+        </Route>
+
         <Route path="/patient/contact" exact>
           <PatientContactUs />
         </Route>
 
         <Route path="/patient/about" exact>
           <PatientAboutUs />
+        </Route>
+
+        <Route path="/patient/document" exact>
+          <PatientDocuments />
+        </Route>
+
+        <Route path="/patient/update-profile" exact>
+          <UpdateProfile />
+        </Route>
+
+        <Route path="/map" exact>
+          <Map />
         </Route>
 
         <Route path="/about" exact>

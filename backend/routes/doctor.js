@@ -1,5 +1,5 @@
 const express = require("express");
-const { check } = require("express-validator");
+// const { check } = require("express-validator");
 
 const router = express.Router();
 
@@ -11,6 +11,12 @@ router.post("/signup", doctorController.postSingup);
 
 router.delete("/delete", doctorController.postDelete);
 
+router.get("/detail", doctorController.getDoctorDetail);
+
 router.get("/detail/:doctorId", doctorController.getDoctor);
+
+router.get("/searchRecord/:firstname", doctorController.getDoctorByName);
+
+router.put("/update/:doctorId",doctorController.updateInformation);
 
 module.exports = router;

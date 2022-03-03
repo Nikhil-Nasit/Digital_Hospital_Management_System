@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
 import classes from "./StaffForm.module.css";
-import StaffImage from "../images/Geometric5.png";
 import { Card } from "react-bootstrap";
+import StaffImage from "../images/StaffVector.jpg"; 
 
 const StaffForm = () => {
   const authCtx = useContext(AuthContext);
@@ -100,10 +100,12 @@ const StaffForm = () => {
 
   return (
     <React.Fragment>
-      <Card.Img
-        src={StaffImage} alt="Staff Image"
-        height={850}
-      />
+      <div className={classes.container}>
+        <div className={classes.imagebox}>
+        <img src={StaffImage} class="img-fluid" alt="Phone image" style={{width:"600px"}}/>
+      </div>
+      {/* <Card.Img src={StaffImage} alt="Card image" height={661} /> */}
+      <div className={classes.loginbox}>
       <Card.ImgOverlay>
         <section className={classes.auth}>
           <h3>STAFF LOGIN</h3>
@@ -162,6 +164,8 @@ const StaffForm = () => {
           </form>
         </section>
       </Card.ImgOverlay>
+      </div>
+      </div>
     </React.Fragment>
   );
 };

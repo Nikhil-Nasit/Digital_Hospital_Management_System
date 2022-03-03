@@ -1,34 +1,26 @@
 import React from "react";
-import { NavLink, useHistory } from "react-router-dom";
-import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+// import { useContext } from "react";
 import classes from "./MainNavigation.module.css";
-import AuthContext from "../store/auth-context";
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-  Container,
-} from "react-bootstrap";
+// import AuthContext from "../store/auth-context";
+import { Navbar, Nav, Container } from "react-bootstrap";
 const MainNavigation = () => {
-  const history = useHistory();
-  const authCtx = useContext(AuthContext);
+  // const history = useHistory();
+  // const authCtx = useContext(AuthContext);
 
-  const logoutHandler = () => {
-    authCtx.logout();
-    history.replace("/");
-  };
-  const isLoggedIn = authCtx.isLoggedIn;
+  // const logoutHandler = () => {
+  //   authCtx.logout();
+  //   history.replace("/");
+  // };
+  // const isLoggedIn = authCtx.isLoggedIn;
   const style1 = {
     color: "white",
     fontSize: 16,
   };
-  const style2 = {
-    color: "pink",
-    fontSize: 20,
-  };
+  // const style2 = {
+  //   color: "pink",
+  //   fontSize: 20,
+  // };
 
   return (
     // <nav className="navbar navbar-expand-lg navbar-light bg-light">

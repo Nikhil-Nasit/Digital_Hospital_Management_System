@@ -1,3 +1,4 @@
+const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const path = require("path");
@@ -5,15 +6,14 @@ const path = require("path");
 const User = require("../models/patient");
 
 exports.uploadDocument = async (req, res, next) => {
- 
   const id = req.body.patient;
-  console.log("Hello");
-  console.log(id);
+  //console.log("Hello");
+  //console.log(id);
   let patient;
   try {
     patient = await User.findOneAndUpdate(
       { _id: id },
-      { $push: { documents: { patientDoc: req.file.path,  } } },
+      { $push: { documents: { patientDoc: req.file.path } } },
       { upsert: true, new: true }
     ).then((data) => {
       if (data) {
@@ -69,6 +69,8 @@ exports.getPatient = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
+  // console.log(patient);
+  // console.log(patient.documents[0].patientDoc);
   res.json({ patient: patient });
 };
 
@@ -155,7 +157,7 @@ exports.postSingup = (req, res, next) => {
             });
             res.status(201).json({
               message: "Signed up Successfully",
-              userId: result.id,
+              patientId: result.id,
               token: token,
             });
           })
@@ -170,5 +172,84 @@ exports.postSingup = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
+    });
+};
+
+exports.getDocument = async (req, res, next) => {
+  const id = req.params.patientId;
+  const props = req.params.props;
+  // console.log(id);
+  let patient;
+  // console.log("Hello");
+  // console.log(props);
+  patient = await User.findById({ _id: id }).then((user) => {
+    if (!user) {
+      res.status(401).json({
+        message: "Invalid credentials, could not log you in.",
+        status: "401",
+      });
+    } else {
+      // console.log(user);
+
+      // console.log(user.documents[props].patientDoc.split("-")[1]);
+
+      // console.log(user.documents.length);
+      let pdfName = user.documents[props].patientDoc.split("-")[1];
+      // for (let i = 0; i < user.documents.length; i++) {
+      // console.log(user.documents[i].patientDoc);
+      // pdfName = user.documents[i].patientDoc.split("-")[1];
+      // }
+
+      const docName = "document-" + pdfName;
+      const docPath = path.join("uploads", "pdfs", docName);
+      console.log(docName);
+      console.log(docPath);
+      fs.readFile(docPath, (err, data) => {
+        if (!err) {
+          res.setHeader("Content-Type", "application/pdf");
+          res.setHeader(
+            "Content-Disposition",
+            'attachment; filename="' + docName + '"'
+          );
+          res.send(data);
+        }
+      });
+      // const file = fs.createReadStream(docPath);
+      // res.setHeader("Content-Type", "application/pdf");
+      // res.setHeader(
+      //   "Content-Disposition",
+      //   'inline; filename="' + docName + '"'
+      // );
+      // file.pipe(res);
+    }
+  });
+};
+
+exports.updateInformation = async (req, res, next) => {
+  const id = req.params.patientId;
+  console.log(id);
+  const { firstName, lastName, mobileNumber } = req.body;
+
+  User.updateOne(
+    { _id: id },
+    {
+      $set: {
+        firstName: firstName,
+        lastName: lastName,
+        mobileNumber: mobileNumber,
+      },
+    },
+    { upsert: true }
+  )
+    .then((user) => {
+      // console.log(user);
+      res.status(201).json({
+        patientDetails: user,
+        message: "Data updated successfully",
+        status: "201",
+      });
+    })
+    .catch((err) => {
+      console.log("Error");
     });
 };

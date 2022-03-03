@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
 import classes from "./AdminForm.module.css";
-import { Form, Group ,Card} from "react-bootstrap";
-import AdminImage from "../images/Geometric3.png";
+import { Form, Group, Card } from "react-bootstrap";
+import AdminImage from "../images/AdminVector.jpg";
 const AdminForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
@@ -95,65 +95,72 @@ const AdminForm = () => {
 
   return (
     <React.Fragment>
-      <Card.Img src={AdminImage} alt="Card image" height={850}/>
-      <Card.ImgOverlay>
-      <section className={classes.auth}>
-        <h3>ADMIN LOGIN</h3>
+      <div className={classes.container}>
+        <div className={classes.imagebox}>
+          <img src={AdminImage} className="img-fluid" alt="Phone image" style={{ width: "600px" }} />
+        </div>
+        <div className={classes.loginbox}>
+          {/* <Card.Img src={AdminImage} alt="Card image" height={661} /> */}
+          <Card.ImgOverlay>
+            <section className={classes.auth}>
+              <h3>ADMIN LOGIN</h3>
 
-        <form onSubmit={formSubmitHandler}>
-          {isLogin && (
-            <div>
-              <div className={classes.control}>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="abc@gmail.com"
-                  required
-                  onChange={emailInputChangeHandlerLogin}
-                  onBlur={emailInputBlurHandlerLogin}
-                  value={enteredEmailLogin}
-                />
-                {emailInputIsInvalidLogin && (
-                  <div className="p-3">
-                    <h6>Email must not be empty</h6>
+              <form onSubmit={formSubmitHandler}>
+                {isLogin && (
+                  <div>
+                    <div className={classes.control}>
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        placeholder="abc@gmail.com"
+                        required
+                        onChange={emailInputChangeHandlerLogin}
+                        onBlur={emailInputBlurHandlerLogin}
+                        value={enteredEmailLogin}
+                      />
+                      {emailInputIsInvalidLogin && (
+                        <div className="p-3">
+                          <h6>Email must not be empty</h6>
+                        </div>
+                      )}
+                    </div>
+                    <div className={classes.control}>
+                      <label htmlFor="password">Password</label>
+                      <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        required
+                        onChange={passwordInputChangeHandlerLogin}
+                        onBlur={passwordInputBlurHandlerLogin}
+                        value={enteredPasswordLogin}
+                      />
+                      {passwordInputIsInvalidLogin && (
+                        <div className="p-3">
+                          <h6 calssName="error">Password must not be empty</h6>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
-              </div>
-              <div className={classes.control}>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                  required
-                  onChange={passwordInputChangeHandlerLogin}
-                  onBlur={passwordInputBlurHandlerLogin}
-                  value={enteredPasswordLogin}
-                />
-                {passwordInputIsInvalidLogin && (
-                  <div className="p-3">
-                    <h6 calssName="error">Password must not be empty</h6>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
 
-          <div className={classes.actions}>
-            {!isLoading && <button disabled={!formIsValid}>Login</button>}
-            {isLoading && (
-              <RingLoader color="white" height={80} width={80}></RingLoader>
-            )}
-            {isLogin && isInValidCredentials && (
-              <div className="p-3">
-                <h6 calssName="error">Invalid credentials, could not log you in.</h6>
-              </div>
-            )}
-          </div>
-        </form>
-      </section>
-      </Card.ImgOverlay>  
+                <div className={classes.actions}>
+                  {!isLoading && <button disabled={!formIsValid}>Login</button>}
+                  {isLoading && (
+                    <RingLoader color="white" height={80} width={80}></RingLoader>
+                  )}
+                  {isLogin && isInValidCredentials && (
+                    <div className="p-3">
+                      <h6 calssName="error">Invalid credentials, could not log you in.</h6>
+                    </div>
+                  )}
+                </div>
+              </form>
+            </section>
+          </Card.ImgOverlay>
+        </div>
+      </div>
     </React.Fragment>
   );
 };

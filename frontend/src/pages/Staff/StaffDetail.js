@@ -1,38 +1,38 @@
 import React from "react";
 // import classes from "./DoctorDetails.module.css";
-import DoctorMainNavigation from "./DoctorMainNavigation";
+import StaffMainNavigation from "./StaffMainNavigation";
 import IMG from "../../components/images/avatar.png";
 import { ListGroupItem } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
-const DoctorDetails = () => {
-  const [doctor, setDoctor] = useState("");
-  const doctorId = window.sessionStorage.getItem("doctorId");
+const StaffDetail = () => {
+  const [staff, setStaff] = useState("");
+  const staffId = window.sessionStorage.getItem("staffId");
 
   useEffect(() => {
     const sendRequest = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/doctor/detail/${doctorId}`
+          `http://localhost:5000/staff/detail/${staffId}`
         );
 
         const responseData = await response.json();
         const doctorDetail = {
-          firstName: responseData.doctor.firstName,
-          lastName: responseData.doctor.lastName,
-          email: responseData.doctor.email,
-          mobileNumber: responseData.doctor.mobileNumber,
-          address: responseData.doctor.address,
-          specialization: responseData.doctor.specialization,
+          firstName: responseData.staff.firstName,
+          lastName: responseData.staff.lastName,
+          email: responseData.staff.email,
+          mobileNumber: responseData.staff.mobileNumber,
+          address: responseData.staff.address,
+        
         };
-        setDoctor(doctorDetail);
+        setStaff(doctorDetail);
         // console.log(responseData.message);
       } catch (err) {
-        console.log("error");
+        console.log("Error");
       }
     };
     sendRequest();
-  }, [doctorId]);
+  }, [staffId]);
 
   return (
     // <React.Fragment>
@@ -59,7 +59,7 @@ const DoctorDetails = () => {
     // </React.Fragment>
 
     <React.Fragment>
-      <DoctorMainNavigation></DoctorMainNavigation>
+      <StaffMainNavigation></StaffMainNavigation>
       <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
         rel="stylesheet"
@@ -72,7 +72,7 @@ const DoctorDetails = () => {
           >
             <div className="container-fluid">
               <h2 className="h6 mb-0 text-white text-uppercase d-none d-lg-inline-block">
-                Doctor profile
+                Staff profile
               </h2>
               <form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"></form>
               <ul className="navbar-nav align-items-center d-none d-md-flex">
@@ -84,7 +84,7 @@ const DoctorDetails = () => {
                       </span>
                       <div className="media-body ml-2 d-none d-lg-block">
                         <span className="mb-0 text-sm  font-weight-bold">
-                          {doctor.firstName + " " + doctor.lastName}
+                          {staff.firstName + " " + staff.lastName}
                         </span>
                       </div>
                     </div>
@@ -111,7 +111,7 @@ const DoctorDetails = () => {
                   <div className="card-body">
                     <form>
                       <h6 className="heading-small text-muted mb-4">
-                        Doctor information
+                        Staff information
                       </h6>
                       <div className="pl-lg-4">
                         <div className="row">
@@ -128,7 +128,7 @@ const DoctorDetails = () => {
                                 className="form-control form-control-alternative"
                                 style={{ fontFamily: "verdana" }}
                               >
-                                {doctor.firstName}
+                                {staff.firstName}
                               </ListGroupItem>
                             </div>
                           </div>
@@ -145,7 +145,7 @@ const DoctorDetails = () => {
                                 className="form-control form-control-alternative"
                                 style={{ fontFamily: "verdana" }}
                               >
-                                {doctor.lastName}
+                                {staff.lastName}
                               </ListGroupItem>
                             </div>
                           </div>
@@ -163,7 +163,7 @@ const DoctorDetails = () => {
                                 className="form-control form-control-alternative"
                                 style={{ fontFamily: "verdana" }}
                               >
-                                {doctor.email}
+                                {staff.email}
                               </ListGroupItem>
                             </div>
                           </div>
@@ -180,7 +180,7 @@ const DoctorDetails = () => {
                                 className="form-control form-control-alternative"
                                 style={{ fontFamily: "verdana" }}
                               >
-                                {doctor.mobileNumber}
+                                {staff.mobileNumber}
                               </ListGroupItem>
                             </div>
                           </div>
@@ -204,7 +204,7 @@ const DoctorDetails = () => {
                                 className="form-control form-control-alternative"
                                 style={{ fontFamily: "verdana" }}
                               >
-                                {doctor.address}
+                                {staff.address}
                               </ListGroupItem>
                             </div>
                           </div>
@@ -227,22 +227,7 @@ const DoctorDetails = () => {
                             </div>
                           </div>
 
-                          <div className="col-lg-4">
-                            <div className="form-group focused">
-                              <label
-                                className="form-control-label"
-                                htmlFor="input-country"
-                              >
-                                Specialization
-                              </label>
-                              <ListGroupItem
-                                className="form-control form-control-alternative"
-                                style={{ fontFamily: "verdana" }}
-                              >
-                                {doctor.specialization}
-                              </ListGroupItem>
-                            </div>
-                          </div>
+                         
                         </div>
                       </div>
                       <div className="pl-lg-4"></div>
@@ -260,4 +245,4 @@ const DoctorDetails = () => {
   );
 };
 
-export default DoctorDetails;
+export default StaffDetail;

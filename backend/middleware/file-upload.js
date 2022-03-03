@@ -8,12 +8,12 @@ const upload = multer({
     // limits: { fieldSize: 25 * 1024 * 1024 },
     storage: multer.diskStorage({
         destination: (req,file,cb) =>{
-            cb(null,'public/');
+            cb(null,'uploads/pdfs');
         },
         filename: (req,file,cb) => {
             const ext = file.mimetype.split('/')[1];
             console.log(ext);
-            cb(null, uuidv1()+file.originalname);
+            cb(null , "document-"+file.originalname);
         }
     }),
     fileFilter: (req,file,cb) => {

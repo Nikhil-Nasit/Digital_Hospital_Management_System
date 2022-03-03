@@ -2,7 +2,7 @@ import React from "react";
 //import PatientMainNavigation from "./PatientMainNavigation";
 import "./HomeAboutUs.css";
 import MainNavigation from "./MainNavigation";
-import { Placeholder, Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Footer from "./Footer";
 const HomeAboutUs = () => {
   return (
@@ -31,7 +31,7 @@ const HomeAboutUs = () => {
             </div>
           </div>
           <div className="image-section">
-            <img src="https://st2.depositphotos.com/3591429/5997/i/600/depositphotos_59977559-stock-photo-hands-holding-word-about-us.jpg"></img>
+            <img src="https://st2.depositphotos.com/3591429/5997/i/600/depositphotos_59977559-stock-photo-hands-holding-word-about-us.jpg" alt="homeImage"></img>
           </div>
         </div>
       </div>

@@ -1,11 +1,11 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-import AuthContext from "../../store/auth-context";
+// import AuthContext from "../../store/auth-context";
 import classes from "./AdminDeleteDoctorForm.module.css";
 
 const AdminDeleteDoctorForm = () => {
-  const authCtx = useContext(AuthContext);
+  // const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(false);

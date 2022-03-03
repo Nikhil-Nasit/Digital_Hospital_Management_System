@@ -4,19 +4,13 @@ import classes from "./AdminMainNavigation.module.css";
 import AuthContext from "../../store/auth-context";
 import Button from "react-bootstrap/Button";
 import { useContext } from "react";
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Container,
-} from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 const AdminMainNavigation = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
 
   const logoutHandler = () => {
+    window.sessionStorage.removeItem("adminId");
     authCtx.logout();
     history.replace("/");
   };

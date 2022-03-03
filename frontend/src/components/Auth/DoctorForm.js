@@ -4,7 +4,7 @@ import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
 import classes from "./DoctorForm.module.css";
 import { Form, Group ,Card} from "react-bootstrap";
-import DoctorImage from "../images/Geometric2.png";
+import DoctorImage from "../images/DoctorVector.jpg";
 const DoctorForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
@@ -99,7 +99,12 @@ const DoctorForm = () => {
 
   return (
     <React.Fragment>
-      <Card.Img src={DoctorImage} alt="Card image" height={850}/>
+      <div className={classes.container}>
+        <div className={classes.imagebox}>
+        <img src={DoctorImage}
+        className="img-fluid" alt="Phoneimage" style={{width:"600px"}}/>
+      </div>
+      <div className={classes.loginbox}>
       <Card.ImgOverlay>
     <section className={classes.auth}>
       <h3>DOCTOR LOGIN</h3>
@@ -157,6 +162,8 @@ const DoctorForm = () => {
       </form>
     </section>
     </Card.ImgOverlay>
+    </div>
+    </div>
     </React.Fragment>
   );
 };

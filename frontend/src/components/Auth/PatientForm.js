@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import PatientImage from "../images/Geometric1.png";
+import PatientImage from "../images/PatientVector.jpg"; 
 //import classes from "./AdminForm.module.css";
 import classes from "./PatientForm.module.css";
 import { Form, Group, Card } from "react-bootstrap";
@@ -231,8 +231,9 @@ const PatientForm = () => {
           enteredPassword === enteredConfirmPassword
         ) {
           authCtx.login(responseData.token);
-          window.sessionStorage.setItem("userId", responseData.userId);
-          history.replace("/patient/home");
+          //window.sessionStorage.setItem("userId", responseData.userId);
+          window.sessionStorage.setItem("patientId", responseData.patientId);
+          history.replace("/patient/detail");
           console.log(responseData.message);
         } else if (enteredPassword !== enteredConfirmPassword) {
           setIsPasswordInValid(true);
@@ -262,7 +263,11 @@ const PatientForm = () => {
 
   return (
     <React.Fragment>
-      <Card.Img src={PatientImage} alt="Card image" height={1050} />
+      <div className={classes.container}>
+        <div className={classes.imagebox}>
+        <img src={PatientImage} className="img-fluid" alt="Phoneimage" style={{width:"600px"}}/>
+      </div>
+      <div className={classes.loginbox}>
       <Card.ImgOverlay>
         <section className={classes.auth}>
           <h3>{isLogin ? "PATIENT LOGIN" : "SIGN UP"}</h3>
@@ -458,6 +463,8 @@ const PatientForm = () => {
           </form>
         </section>
       </Card.ImgOverlay>
+      </div>
+      </div>
     </React.Fragment>
   );
 };

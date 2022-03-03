@@ -1,5 +1,5 @@
 // import Slider from '../UI/Slider';
-import classes from "./StartingPageContent.module.css";
+// import classes from "./StartingPageContent.module.css";
 import { Carousel } from "react-bootstrap";
 import React from "react";
 import Footer from "../../pages/Footer";

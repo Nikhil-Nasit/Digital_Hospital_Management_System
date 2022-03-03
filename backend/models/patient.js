@@ -33,6 +33,12 @@ const userSchema = new Schema({
       _id: 0
     },
   ],
+  doctor:[
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Doctor"
+    }
+  ]
 });
 
 module.exports = mongoose.model("User", userSchema);

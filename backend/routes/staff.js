@@ -15,4 +15,8 @@ router.post(
 
 router.delete("/delete",staffController.postDelete);
 
+router.get("/detail/:staffId", staffController.getStaff);
+
+router.put("/update/:staffId",staffController.updateInformation);
+
 module.exports = router;

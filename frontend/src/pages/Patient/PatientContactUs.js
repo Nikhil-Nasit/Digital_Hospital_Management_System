@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./PatientContactUs.module.css";
+// import classes from "./PatientContactUs.module.css";
 import PatientMainNavigation from "./PatientMainNavigation";
 
 const PatientContactUs = () => {
