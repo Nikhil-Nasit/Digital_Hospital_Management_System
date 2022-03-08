@@ -1,15 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-import AuthContext from "../../store/auth-context";
 import PatientImage from "../../components/images/PatientVector.jpg";
 import DoctorMainNavigation from "./DoctorMainNavigation";
-import { Form, Group, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import classes from "../../components/Auth/PatientForm.module.css";
 
-
 const UpdateDoctorProfile = () => {
-  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [doctor, setDoctor] = useState("");
@@ -73,33 +70,31 @@ const UpdateDoctorProfile = () => {
   }, [doctorId]);
 
   const formSubmitHandler = async (e) => {
-
     e.preventDefault();
     try {
       setIsLoading(true);
 
-      const response = await fetch(`http://localhost:5000/doctor/update/${doctorId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: enteredFirstName,
-          lastName: enteredLastName,
-          mobileNumber: enteredMobileNumber,
-          address: enteredAddress,
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:5000/doctor/update/${doctorId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName: enteredFirstName,
+            lastName: enteredLastName,
+            mobileNumber: enteredMobileNumber,
+            address: enteredAddress,
+          }),
+        }
+      );
 
       const responseData = await response.json();
       setIsLoading(false);
-    
+
       if (responseData.status === "201") {
-        // authCtx.login(responseData.token);
-        //window.sessionStorage.setItem("userId", responseData.userId);
-        // window.sessionStorage.setItem("patientId", responseData.patientId);
         history.replace("/doctor/detail");
-        // console.log("Doctor");
         console.log(responseData.message);
       } else {
         setIsExsistingUser(true);

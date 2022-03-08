@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-// import AuthContext from "../../store/auth-context";
 import classes from "./StaffManagePatientId.module.css";
 
 const StaffManagePatientId = () => {
-  // const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +13,8 @@ const StaffManagePatientId = () => {
   const [enteredPatientIdTouched, setEnteredPatientIdTouched] = useState(false);
 
   const enteredPatientIdIsValid = enteredPatientId.trim() !== "";
-  const patientIdInputIsInValid = !enteredPatientIdIsValid && enteredPatientIdTouched;
+  const patientIdInputIsInValid =
+    !enteredPatientIdIsValid && enteredPatientIdTouched;
 
   const patientIdInputChangeHandler = (event) => {
     setEnteredPatientId(event.target.value);
@@ -32,7 +31,7 @@ const StaffManagePatientId = () => {
   }
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    
+
     try {
       setIsLoading(true);
       const response = await fetch("http://localhost:5000/find/patient", {
@@ -54,12 +53,11 @@ const StaffManagePatientId = () => {
         // console.log(responseData.message);
 
         // console.log(responseData.patientId);
-        localStorage.setItem("patientId",responseData.patientId);
+        localStorage.setItem("patientId", responseData.patientId);
       } else {
         setIsNotExist(true);
         history.replace("/staff/manage-patient-id");
         console.log(responseData.message);
-        
       }
     } catch (err) {
       console.log(err);

@@ -20,69 +20,14 @@ const AdminMainNavigation = () => {
     fontSize: 16,
   };
   return (
-    // <React.Fragment>
-    //   <header
-    //     className={`${classes.header} ${classes.brown} ${classes.highlightTextOut}`}
-    //   >
-    //     <NavLink to="/admin/home">
-    //       <div className={classes.logo}>Welcome Admin</div>
-    //     </NavLink>
-    //     <ul>
-    //       <li>
-    //         <NavLink
-    //           activeClassName={classes.active}
-    //           to="/admin/add-doctor"
-    //           alt="ADD DOCTOR"
-    //         >
-    //           ADD DOCTOR
-    //         </NavLink>
-    //       </li>
-    //       <li>
-    //         <NavLink
-    //           activeClassName={classes.active}
-    //           to="/admin/add-staff"
-    //           alt="ADD STAFF"
-    //         >
-    //           ADD STAFF
-    //         </NavLink>
-    //       </li>
-    //       <li>
-    //         <NavLink
-    //           activeClassName={classes.active}
-    //           to="/admin/delete-doctor"
-    //           alt="DELETE DOCTOR"
-    //         >
-    //           DELETE DOCTOR
-    //         </NavLink>
-    //       </li>
-    //       <li>
-    //         <NavLink
-    //           activeClassName={classes.active}
-    //           to="/admin/delete-staff"
-    //           alt="DELETE STAFF"
-    //         >
-    //           DELETE STAFF
-    //         </NavLink>
-    //       </li>
-    //       {isLoggedIn && (
-    //         <li>
-    //           <Button
-    //             variant="outline-info"
-    //             onClick={logoutHandler}
-    //             alt="LOGOUT"
-    //           >
-    //             LOGOUT
-    //           </Button>
-    //         </li>
-    //       )}
-    //     </ul>
-    //   </header>
-    // </React.Fragment>
-
     <React.Fragment>
       <Navbar bg="dark" sticky="top" variant="dark">
         <Container>
-          <Navbar.Brand as={NavLink} to="/admin/home">
+          <Navbar.Brand
+            as={NavLink}
+            to="/admin/home"
+            activeClassName={classes.adminborder}
+          >
             Welcome Admin
           </Navbar.Brand>
           <Nav className="ms-auto">

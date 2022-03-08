@@ -1,6 +1,5 @@
 import { Switch, Route } from "react-router-dom";
 import React from "react";
-import UserProfile from "./components/Profile/UserProfile";
 import AdminPage from "./pages/AdminPage";
 import PatientPage from "./pages/PatientPage";
 import DoctorPage from "./pages/DoctorPage";
@@ -31,6 +30,7 @@ import UpdateProfile from "./pages/Patient/UpdateProfile";
 import UpdateDoctorProfile from "./pages/Doctor/UpdateDoctorProfile";
 import UpdateStaffProfile from "./pages/Staff/UpdateStaffProfile";
 import StaffDetail from "./pages/Staff/StaffDetail";
+import PaymentPage from "./pages/PaymentPage";
 function App() {
   return (
     <React.Fragment>
@@ -41,6 +41,10 @@ function App() {
 
         <Route path="/admin/login" exact>
           <AdminPage />
+        </Route>
+
+        <Route path="/payment" exact>
+          <PaymentPage />
         </Route>
 
         <Route path="/patient/login" exact>
@@ -133,10 +137,6 @@ function App() {
 
         <Route path="/contact" exact>
           <HomeContactUs />
-        </Route>
-
-        <Route path="/profile" exact>
-          <UserProfile />
         </Route>
 
         <Route path="/admin/home" exact>

@@ -4,7 +4,7 @@ import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
 import classes from "./StaffForm.module.css";
 import { Card } from "react-bootstrap";
-import StaffImage from "../images/StaffVector.jpg"; 
+import StaffImage from "../images/StaffVector.jpg";
 
 const StaffForm = () => {
   const authCtx = useContext(AuthContext);
@@ -13,7 +13,6 @@ const StaffForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isInValidCredentials, setIsInValidCredentials] = useState(false);
-
   const [enteredEmailLogin, setEnteredEmailLogin] = useState("");
   const [enteredEmailLoginTouched, setEnteredEmailLoginTouched] =
     useState(false);
@@ -79,7 +78,6 @@ const StaffForm = () => {
           window.sessionStorage.setItem("staffId", responseData.staffId);
           history.replace({
             pathname: "/staff/home",
-            // doctorId : responseData.doctorDetail._id
           });
           // console.log(responseData.message);
           // console.log(responseData.doctorId);
@@ -102,69 +100,77 @@ const StaffForm = () => {
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.imagebox}>
-        <img src={StaffImage} class="img-fluid" alt="Phone image" style={{width:"600px"}}/>
-      </div>
-      {/* <Card.Img src={StaffImage} alt="Card image" height={661} /> */}
-      <div className={classes.loginbox}>
-      <Card.ImgOverlay>
-        <section className={classes.auth}>
-          <h3>STAFF LOGIN</h3>
+          <img
+            src={StaffImage}
+            className="img-fluid"
+            alt="StaffImage"
+            style={{ width: "600px" }}
+          />
+        </div>
+        <div className={classes.loginbox}>
+          <Card.ImgOverlay>
+            <section className={classes.auth}>
+              <h3>STAFF LOGIN</h3>
 
-          <form onSubmit={formSubmitHandler}>
-            {isLogin && (
-              <div>
-                <div className={classes.control}>
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="abc@gmail.com"
-                    required
-                    onChange={emailInputChangeHandlerLogin}
-                    onBlur={emailInputBlurHandlerLogin}
-                    value={enteredEmailLogin}
-                  />
-                  {emailInputIsInvalidLogin && (
+              <form onSubmit={formSubmitHandler}>
+                {isLogin && (
+                  <div>
+                    <div className={classes.control}>
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        placeholder="abc@gmail.com"
+                        required
+                        onChange={emailInputChangeHandlerLogin}
+                        onBlur={emailInputBlurHandlerLogin}
+                        value={enteredEmailLogin}
+                      />
+                      {emailInputIsInvalidLogin && (
+                        <div className="p-3">
+                          <h6>Email must not be empty</h6>
+                        </div>
+                      )}
+                    </div>
+                    <div className={classes.control}>
+                      <label htmlFor="password">Password</label>
+                      <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        required
+                        onChange={passwordInputChangeHandlerLogin}
+                        onBlur={passwordInputBlurHandlerLogin}
+                        value={enteredPasswordLogin}
+                      />
+                      {passwordInputIsInvalidLogin && (
+                        <div className="p-3">
+                          <h6>Password must not be empty</h6>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <div className={classes.actions}>
+                  {!isLoading && <button disabled={!formIsValid}>Login</button>}
+                  {isLoading && (
+                    <RingLoader
+                      color="white"
+                      height={80}
+                      width={80}
+                    ></RingLoader>
+                  )}
+                  {isLogin && isInValidCredentials && (
                     <div className="p-3">
-                      <h6>Email must not be empty</h6>
+                      <h6>Invalid credentials, could not log you in.</h6>
                     </div>
                   )}
                 </div>
-                <div className={classes.control}>
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    required
-                    onChange={passwordInputChangeHandlerLogin}
-                    onBlur={passwordInputBlurHandlerLogin}
-                    value={enteredPasswordLogin}
-                  />
-                  {passwordInputIsInvalidLogin && (
-                    <div className="p-3">
-                      <h6>Password must not be empty</h6>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <div className={classes.actions}>
-              {!isLoading && <button disabled={!formIsValid}>Login</button>}
-              {isLoading && (
-                <RingLoader color="white" height={80} width={80}></RingLoader>
-              )}
-              {isLogin && isInValidCredentials && (
-                <div className="p-3">
-                  <h6>Invalid credentials, could not log you in.</h6>
-                </div>
-              )}
-            </div>
-          </form>
-        </section>
-      </Card.ImgOverlay>
-      </div>
+              </form>
+            </section>
+          </Card.ImgOverlay>
+        </div>
       </div>
     </React.Fragment>
   );

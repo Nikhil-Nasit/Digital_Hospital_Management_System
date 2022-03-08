@@ -30,7 +30,9 @@ const HomeContactUs = () => {
                   <div className="app-title">
                     <span>CONTACT US</span>
                   </div>
-                  <div className="app-contact">CONTACT INFO : +91 9328893561</div>
+                  <div className="app-contact">
+                    CONTACT INFO : +91 9328893561
+                  </div>
                   <div className="col-10" style={{ color: "white" }}>
                     <BsInstagram className="mx-2" size={20}></BsInstagram>
                     <FiTwitter className="mx-3" size={20}></FiTwitter>
@@ -52,7 +54,10 @@ const HomeContactUs = () => {
                       />
                     </div>
                     <div className="app-form-group message">
-                      <input className="app-form-control" placeholder="MESSAGE" />
+                      <input
+                        className="app-form-control"
+                        placeholder="MESSAGE"
+                      />
                     </div>
                     <div className="app-form-group buttons">
                       <button className="app-form-button mx-3">CANCEL</button>

@@ -1,6 +1,5 @@
 import { React } from "react";
 import StaffMainNavigation from "./StaffMainNavigation";
-import "./UploadDocument.css";
 import StaffManagePatientId from "./StaffManagePatientId";
 const UploadDocument = () => {
   return (

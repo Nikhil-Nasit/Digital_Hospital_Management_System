@@ -1,13 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-import AuthContext from "../../store/auth-context";
 import PatientImage from "../../components/images/PatientVector.jpg";
 import PatientMainNavigation from "./PatientMainNavigation";
-import { Form, Group, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import classes from "../../components/Auth/PatientForm.module.css";
 const UpdateProfile = () => {
-  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const patientId = window.sessionStorage.getItem("patientId");
@@ -23,7 +21,9 @@ const UpdateProfile = () => {
 
   const [enteredEmail, setEnteredEmail] = useState("");
 
-  const [enteredMobileNumber, setEnteredMobileNumber] = useState(patient.mobileNumber);
+  const [enteredMobileNumber, setEnteredMobileNumber] = useState(
+    patient.mobileNumber
+  );
 
   const firstNameInputChangeHandler = (event) => {
     setEnteredFirstName(event.target.value);
@@ -44,8 +44,6 @@ const UpdateProfile = () => {
     setEnteredMobileNumber(event.target.value);
     setIsExsistingUser(false);
   };
-
-  
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -91,11 +89,8 @@ const UpdateProfile = () => {
 
       const responseData = await response.json();
       setIsLoading(false);
-        // console.lo
+
       if (responseData.status === "201") {
-        // authCtx.login(responseData.token);
-        //window.sessionStorage.setItem("userId", responseData.userId);
-        // window.sessionStorage.setItem("patientId", responseData.patientId);
         history.replace("/patient/detail");
         console.log(responseData.message);
       } else {

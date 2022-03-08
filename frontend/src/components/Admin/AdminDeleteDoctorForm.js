@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-// import AuthContext from "../../store/auth-context";
 import classes from "./AdminDeleteDoctorForm.module.css";
 
 const AdminDeleteDoctorForm = () => {
-  // const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +50,7 @@ const AdminDeleteDoctorForm = () => {
 
       if (responseData.status === "200") {
         // authCtx.login(responseData.token);
-        history.replace("/admin/home");
+        history.replace("/");
         console.log(responseData.message);
       } else {
         setIsNotExist(true);
@@ -68,6 +66,7 @@ const AdminDeleteDoctorForm = () => {
     <div className={classes.image}>
       <section className={classes.auth}>
         <h3>Delete Doctor</h3>
+
         <form onSubmit={formSubmitHandler}>
           <div>
             <div className={classes.control}>

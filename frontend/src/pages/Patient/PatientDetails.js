@@ -4,7 +4,7 @@ import PatientMainNavigation from "./PatientMainNavigation";
 import IMG from "../../components/images/avatar.png";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { ListGroupItem, Button } from "react-bootstrap";
+import { ListGroupItem ,Button} from "react-bootstrap";
 
 const PatientDetails = () => {
   const [patient, setPatient] = useState("");
@@ -18,6 +18,7 @@ const PatientDetails = () => {
         );
 
         const responseData = await response.json();
+        console.log("Patient Details");
         const patientDetail = {
           firstName: responseData.patient.firstName,
           lastName: responseData.patient.lastName,
@@ -167,7 +168,11 @@ const PatientDetails = () => {
                         Contact information
                       </h6>
                       <div className="pl-lg-4">
-                        
+                        <div className="row">
+                          <div className="col-md-12">
+                            
+                          </div>
+                        </div>
                         <div className="row">
                           <div className="col-lg-4">
                             <div className="form-group focused">
@@ -194,12 +199,11 @@ const PatientDetails = () => {
                               >
                                 Documents
                               </label>
-
-                              <NavLink to="/patient/document" exact>
-                                <Button className="mt-1">
-                                  Click to get your Documents
-                                </Button>
-                              </NavLink>
+                              
+                                <NavLink to="/patient/document" exact>
+                                  <Button className="mt-1">Click to get your Documents</Button>
+                                </NavLink>
+                              
                             </div>
                           </div>
                         </div>

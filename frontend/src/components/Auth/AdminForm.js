@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
 import classes from "./AdminForm.module.css";
-import { Form, Group, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import AdminImage from "../images/AdminVector.jpg";
 const AdminForm = () => {
   const authCtx = useContext(AuthContext);
@@ -97,7 +97,12 @@ const AdminForm = () => {
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.imagebox}>
-          <img src={AdminImage} className="img-fluid" alt="Phone image" style={{ width: "600px" }} />
+          <img
+            src={AdminImage}
+            className="img-fluid"
+            alt="AdminImage"
+            style={{ width: "600px" }}
+          />
         </div>
         <div className={classes.loginbox}>
           {/* <Card.Img src={AdminImage} alt="Card image" height={661} /> */}
@@ -138,7 +143,7 @@ const AdminForm = () => {
                       />
                       {passwordInputIsInvalidLogin && (
                         <div className="p-3">
-                          <h6 calssName="error">Password must not be empty</h6>
+                          <h6 className="error">Password must not be empty</h6>
                         </div>
                       )}
                     </div>
@@ -148,11 +153,17 @@ const AdminForm = () => {
                 <div className={classes.actions}>
                   {!isLoading && <button disabled={!formIsValid}>Login</button>}
                   {isLoading && (
-                    <RingLoader color="white" height={80} width={80}></RingLoader>
+                    <RingLoader
+                      color="white"
+                      height={80}
+                      width={80}
+                    ></RingLoader>
                   )}
                   {isLogin && isInValidCredentials && (
                     <div className="p-3">
-                      <h6 calssName="error">Invalid credentials, could not log you in.</h6>
+                      <h6 className="error">
+                        Invalid credentials, could not log you in.
+                      </h6>
                     </div>
                   )}
                 </div>

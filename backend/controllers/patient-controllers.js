@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 // const { validationResult } = require('express-validator');
 const User = require("../models/patient");
+const { v1: uuidv1 } = require("uuid");
+const RazorPay = require("razorpay");
 
 exports.uploadDocument = async (req, res, next) => {
   const id = req.body.patient;
-  //console.log("Hello");
-  //console.log(id);
   let patient;
   try {
     patient = await User.findOneAndUpdate(
@@ -17,9 +17,6 @@ exports.uploadDocument = async (req, res, next) => {
       { upsert: true, new: true }
     ).then((data) => {
       if (data) {
-        // const patientDetails : data;
-        // res.json({patient:data});
-        // console.log(data);
         res.status(201).json({
           data: data,
           status: "201",
@@ -31,10 +28,6 @@ exports.uploadDocument = async (req, res, next) => {
   } catch (err) {
     console.log("Error !");
   }
-  // console.log(patient);
-  // res.json({patient:patient});
-
-  // res.json({ patient: patientDetails });
 };
 
 exports.findPatient = (req, res, next) => {
@@ -53,7 +46,6 @@ exports.findPatient = (req, res, next) => {
           status: "201",
           patientId: user.id,
         });
-        // console.log(user);
       }
     })
     .catch((err) => {
@@ -69,8 +61,7 @@ exports.getPatient = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-  // console.log(patient);
-  // console.log(patient.documents[0].patientDoc);
+
   res.json({ patient: patient });
 };
 
@@ -100,7 +91,6 @@ exports.postLogin = (req, res, next) => {
                 patientId: user.id,
                 token: token,
               });
-              // console.log(user);
             } else {
               res.status(401).json({
                 message: "Invalid credentials, could not log you in.",
@@ -178,10 +168,9 @@ exports.postSingup = (req, res, next) => {
 exports.getDocument = async (req, res, next) => {
   const id = req.params.patientId;
   const props = req.params.props;
-  // console.log(id);
+
   let patient;
-  // console.log("Hello");
-  // console.log(props);
+
   patient = await User.findById({ _id: id }).then((user) => {
     if (!user) {
       res.status(401).json({
@@ -189,16 +178,7 @@ exports.getDocument = async (req, res, next) => {
         status: "401",
       });
     } else {
-      // console.log(user);
-
-      // console.log(user.documents[props].patientDoc.split("-")[1]);
-
-      // console.log(user.documents.length);
       let pdfName = user.documents[props].patientDoc.split("-")[1];
-      // for (let i = 0; i < user.documents.length; i++) {
-      // console.log(user.documents[i].patientDoc);
-      // pdfName = user.documents[i].patientDoc.split("-")[1];
-      // }
 
       const docName = "document-" + pdfName;
       const docPath = path.join("uploads", "pdfs", docName);
@@ -242,7 +222,6 @@ exports.updateInformation = async (req, res, next) => {
     { upsert: true }
   )
     .then((user) => {
-      // console.log(user);
       res.status(201).json({
         patientDetails: user,
         message: "Data updated successfully",
@@ -252,4 +231,24 @@ exports.updateInformation = async (req, res, next) => {
     .catch((err) => {
       console.log("Error");
     });
+};
+
+exports.getPayment = async (req, res, next) => {
+  try {
+    const instance = new RazorPay({
+      key_id: process.env.RZR_PAY_ID,
+      key_secret: process.env.RZR_PAY_SECRET,
+    });
+
+    const options = {
+      amount: req.body.amount * 100, // amount in the smallest currency unit
+      currency: "INR",
+      receipt: `${uuidv1()}`,
+    };
+
+    return res.status(201).json("Payment Done Successfully!");
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error.message });
+  }
 };

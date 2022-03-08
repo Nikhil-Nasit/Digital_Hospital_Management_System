@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-// import AuthContext from "../../store/auth-context";
 import classes from "./AdminDeleteStaffForm.module.css";
 
 const AdminDeleteStaffForm = () => {
-  // const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -17,12 +15,12 @@ const AdminDeleteStaffForm = () => {
   const enteredStaffIdIsValid = enteredStaffId.trim() !== "";
   const staffIdInputIsInValid = !enteredStaffIdIsValid && enteredStaffIdTouched;
 
-  const staffIdInputChangeHandler = (event) => {
+  const doctorIdInputChangeHandler = (event) => {
     setEnteredStaffId(event.target.value);
     setIsNotExist(false);
   };
 
-  const staffIdInputBlurHandler = (event) => {
+  const doctorIdInputBlurHandler = (event) => {
     setEnteredStaffIdTouched(true);
   };
 
@@ -50,7 +48,7 @@ const AdminDeleteStaffForm = () => {
 
       if (responseData.status === "200") {
         // authCtx.login(responseData.token);
-        history.replace("/admin/home");
+        history.replace("/");
         console.log(responseData.message);
       } else {
         setIsNotExist(true);
@@ -66,6 +64,7 @@ const AdminDeleteStaffForm = () => {
     <div className={classes.image}>
       <section className={classes.auth}>
         <h3>Delete Staff</h3>
+
         <form onSubmit={formSubmitHandler}>
           <div>
             <div className={classes.control}>
@@ -75,8 +74,8 @@ const AdminDeleteStaffForm = () => {
                 id="id"
                 placeholder="Enter Staff ID"
                 required
-                onChange={staffIdInputChangeHandler}
-                onBlur={staffIdInputBlurHandler}
+                onChange={doctorIdInputChangeHandler}
+                onBlur={doctorIdInputBlurHandler}
                 value={enteredStaffId}
               />
               {staffIdInputIsInValid && (

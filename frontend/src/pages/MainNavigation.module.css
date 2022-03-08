@@ -75,8 +75,12 @@
   transform: scale(1.2);
 }
 
-.active {
+ .active {
   padding-bottom: 0.25rem;
-  border-bottom: 4px solid rgb(0, 206, 189);
+  border-bottom: 4px solid rgb(0, 255, 255);
   display: inline-block;
+}
+.homeborder
+{
+  border-bottom: 4px solid rgb(235, 238, 82);
 }

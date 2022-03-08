@@ -292,7 +292,7 @@ const AdminManageDoctorForm = () => {
                 value={enteredMobileNumber}
               />
               {mobileNumberInputIsInValid && (
-                <div classname="p-3">
+                <div className="p-3">
                   <h6>Mobile Number must not be empty</h6>
                 </div>
               )}

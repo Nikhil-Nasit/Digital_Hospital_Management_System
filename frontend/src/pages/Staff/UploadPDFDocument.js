@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-
 import classes from "./UploadPDFDocument.module.css";
 import { Worker } from "@react-pdf-viewer/core";
 import { Viewer } from "@react-pdf-viewer/core";
@@ -8,7 +7,6 @@ import axios from "axios";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { Button, Nav, Navbar, Container } from "react-bootstrap";
-
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
@@ -75,8 +73,6 @@ const UploadPDFDocument = () => {
 
   return (
     <>
-      {/* <Card.Img src={DocumentImage} alt="Card image" height={850} />
-      <Card.ImgOverlay> */}
       <Navbar bg="dark" sticky="top" variant="dark">
         <Container>
           <Navbar.Brand as={NavLink} to="/staff/home">
@@ -86,6 +82,7 @@ const UploadPDFDocument = () => {
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
+              style={{ fontSize: 16 }}
               to="/staff/upload-patient-document"
             >
               UPLOAD PATIENT DOCUMENT
@@ -93,49 +90,57 @@ const UploadPDFDocument = () => {
           </Nav>
         </Container>
       </Navbar>
+      <div
+        style={{
+          background: "linear-gradient(#181717e5 0%, #2162d1ad 100%)",
+          display: "flex",
+          minHeight: "673px",
+        }}
+      >
+        <div className="container">
+          <form className={classes.auth}>
+            <label>
+              <h5 className={classes.textcolors}>Upload PDF</h5>
+            </label>
+            <br></br>
 
-      <div className="container">
-        <form className={classes.auth}>
-          <label>
-            <h5>Upload PDF</h5>
-          </label>
-          <br></br>
+            <input
+              type="file"
+              className="form-control"
+              onChange={handleFile}
+            ></input>
 
-          <input
-            type="file"
-            className="form-control"
-            onChange={handleFile}
-          ></input>
+            {pdfError && <span className="text-danger">{pdfError}</span>}
+          </form>
+          <div className={classes.center}>
+            {!pdfFile && (
+              <Button disabled variant="info">
+                UPLOAD
+              </Button>
+            )}
+            {pdfFile && (
+              <Button onClick={uploadHandler} variant="info">
+                UPLOAD
+              </Button>
+            )}
+          </div>
+          <h5 className={classes.textcolors}>View PDF</h5>
+          <div className="viewer">
+            {pdfFile && (
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
+                <Viewer
+                  fileUrl={pdfFile}
+                  plugins={[defaultLayoutPluginInstance]}
+                ></Viewer>
+              </Worker>
+            )}
 
-          {pdfError && <span className="text-danger">{pdfError}</span>}
-        </form>
-        <div className={classes.center}>
-          {!pdfFile && (
-            <Button disabled variant="info">
-              UPLOAD
-            </Button>
-          )}
-          {pdfFile && (
-            <Button onClick={uploadHandler} variant="info">
-              UPLOAD
-            </Button>
-          )}
-        </div>
-        <h5>View PDF</h5>
-        <div className="viewer">
-          {pdfFile && (
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
-              <Viewer
-                fileUrl={pdfFile}
-                plugins={[defaultLayoutPluginInstance]}
-              ></Viewer>
-            </Worker>
-          )}
-
-          {!pdfFile && <h5>No file is selected yet</h5>}
+            {!pdfFile && (
+              <h5 className={classes.textcolors}>No file is selected yet</h5>
+            )}
+          </div>
         </div>
       </div>
-      {/* </Card.ImgOverlay> */}
     </>
   );
 };

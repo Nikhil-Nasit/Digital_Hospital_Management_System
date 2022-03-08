@@ -10,10 +10,6 @@ const style1 = {
   color: "white",
   fontSize: 16,
 };
-// const style2 = {
-//   color: "pink",
-//   fontSize: 20,
-// };
 const DoctorMainNavigation = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
@@ -28,7 +24,12 @@ const DoctorMainNavigation = () => {
     <React.Fragment>
       <Navbar bg="p-3 bg-dark text-white" sticky="top" variant="light">
         <Container>
-          <Navbar.Brand as={NavLink} to="/doctor/home" style={style1}>
+          <Navbar.Brand
+            as={NavLink}
+            to="/doctor/home"
+            style={style1}
+            activeClassName={classes.doctorborder}
+          >
             Welcome Doctor
           </Navbar.Brand>
           <Nav className="ms-auto">
@@ -43,19 +44,20 @@ const DoctorMainNavigation = () => {
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
-              to="/doctor/contact"
-              style={style1}
-            >
-              CONTACT
-            </Nav.Link>
-            <Nav.Link
-              as={NavLink}
-              activeClassName={classes.active}
               to="/doctor/update-profile"
               style={style1}
             >
               UPDATE PROFILE
             </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
+              to="/doctor/contact"
+              style={style1}
+            >
+              CONTACT US
+            </Nav.Link>
+
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}

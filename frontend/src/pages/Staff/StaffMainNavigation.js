@@ -5,6 +5,7 @@ import AuthContext from "../../store/auth-context";
 import Button from "react-bootstrap/Button";
 import { useContext } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
+
 const StaffMainNavigation = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
@@ -20,28 +21,37 @@ const StaffMainNavigation = () => {
     <React.Fragment>
       <Navbar bg="dark" sticky="top" variant="dark">
         <Container>
-          <Navbar.Brand as={NavLink} to="/staff/home">
+          <Navbar.Brand
+            as={NavLink}
+            to="/staff/home"
+            activeClassName={classes.staffborder}
+          >
             Welcome Staff
           </Navbar.Brand>
           <Nav className="ms-auto">
-          <Nav.Link
-              as={NavLink}
-              activeClassName={classes.active}
-              to="/staff/detail"
-            >
-              DETAILS
-            </Nav.Link>
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
               to="/staff/manage-patient-id"
+              style={{ fontSize: 16 }}
             >
               UPLOAD PATIENT DOCUMENT
             </Nav.Link>
+
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
+              to="/staff/detail"
+              style={{ fontSize: 16 }}
+            >
+              DETAILS
+            </Nav.Link>
+
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
               to="/staff/update-profile"
+              style={{ fontSize: 16 }}
             >
               UPDATE PROFILE
             </Nav.Link>

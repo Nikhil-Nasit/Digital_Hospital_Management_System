@@ -109,7 +109,7 @@ exports.postSingup = (req, res, next) => {
 exports.postDelete = (req, res, next) => {
   const { id } = req.body;
 
-  Staff.findByIdAndDelete({ _id : id }).then((staffDoc) => {
+  Staff.findByIdAndDelete({ _id: id }).then((staffDoc) => {
     if (staffDoc) {
       return res.status(200).json({
         message: "Staff deleted",
@@ -137,13 +137,10 @@ exports.getStaff = async (req, res, next) => {
   res.json({ staff: staff });
 };
 
-
-
-
 exports.updateInformation = async (req, res, next) => {
   const id = req.params.staffId;
   // console.log(id);
-  const { firstName, lastName, mobileNumber ,address} = req.body;
+  const { firstName, lastName, mobileNumber, address } = req.body;
 
   Staff.updateOne(
     { _id: id },
@@ -152,7 +149,7 @@ exports.updateInformation = async (req, res, next) => {
         firstName: firstName,
         lastName: lastName,
         mobileNumber: mobileNumber,
-        address:address
+        address: address,
       },
     },
     { upsert: true }

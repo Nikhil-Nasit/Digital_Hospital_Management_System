@@ -4,23 +4,17 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const pdfParse = require("pdf-parse");
-
+require("dotenv").config();
 var busboy = require("connect-busboy");
 const fileUpload = require("./middleware/file-upload");
 const userRoutes = require("./routes/patient");
 const doctorRoutes = require("./routes/doctor");
 const staffRoutes = require("./routes/staff");
 const adminRoutes = require("./routes/admin");
-// const userUpload = require("./routes/index");
+
 const app = express();
 
-// const express = require("express");
-// const router = express.Router();
-// const erroeRoutes = require('./')
-
 // const pdfFile = fs.readFileSync("uploads\\pdfs\\036747b0-9001-11ec-a741-f52a5a012c56SEM 6 H.pdf");
-
-// const pdfFile2 = fs.readFileSync("uploads\\pdfs\\86de2900-9007-11ec-ba67-3943b9020bf605_MongoDB.pdf");
 
 // app.use(bodyParser.json());
 // const fileUpload = require('express-fileupload');
@@ -43,7 +37,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // app.use(fileUpload());
-
 
 // app.post('/uploads' , fileUpload.single('file') ,(req,res,next) => {
 //   console.log("Hey");

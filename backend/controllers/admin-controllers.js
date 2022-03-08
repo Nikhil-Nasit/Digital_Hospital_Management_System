@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const Admin = require("../models/admin");
 
 exports.postLogin = (req, res, next) => {
@@ -24,7 +23,6 @@ exports.postLogin = (req, res, next) => {
           adminId: admin.id,
           token: token,
         });
-        // console.log(user);
       } else {
         res.status(401).json({
           message: "Invalid credentials, could not log you in.",
